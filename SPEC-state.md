@@ -1,22 +1,21 @@
 # State
 
-Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
+The state is the set of all account and contract data at a height. It is held in a sparse Merkle trie so that every value has a proof and the whole state has one root.
 
-## Scope
+## The trie
 
-This document defines the sparse Merkle trie layout and the inclusion and exclusion proofs.
+The state trie is a sparse Merkle trie keyed by a fixed width key and hashed with SHA3. A leaf holds a value, and each inner node holds the hash of its children. The root is a 32 byte value that commits to the entire state. Because the trie is sparse, an absent key has a proof of absence just as a present key has a proof of presence.
 
-## Normative specification
+## Proofs
 
-To be authored.
+A proof for a key is the path of sibling hashes from the leaf to the root. A verifier recomputes the root from the claimed value and the path, and accepts only when it matches the state root in a block header. This lets a light client read any value with a proof and no full copy of the state.
 
-## Exclusions
+## Determinism
 
-To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
+The mapping from a set of key and value pairs to a root is fixed by this specification, so every node computes the same root for the same state. The order in which updates are applied does not change the final root.
 
-## Conformance
+## State access
 
-Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
-
+An entry declares the keys it reads and the keys it writes. The machine enforces that an entry touches only its declared keys, which is what lets the scheduler run entries that do not overlap at the same time.
