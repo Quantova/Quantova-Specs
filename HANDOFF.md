@@ -10,7 +10,7 @@ The committed and honest performance envelope is one hundred thousand or more tr
 
 ## Decisions already made
 
-Rust is used for all framework code, and software development kits in other languages are generated bindings over the Rust core, never rewrites.
+Rust is used for all framework code, and software development kits in other languages are bindings built from the Rust core, never rewrites.
 
 Consensus is QORUS, staged. Stage one is a post quantum byzantine fault tolerant core at genesis, with 150 millisecond slots, deterministic leader rotation, lattice attestations, STARK certificate aggregation in place of the quantum broken pairing aggregate, and parallel execution. Stage two adds recursive STARK succinctness and public one tap validators in the application. Stage three adds novel mechanisms that are activated only by governance after external cryptanalysis.
 

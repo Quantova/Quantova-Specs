@@ -6,7 +6,7 @@ Precedence. This document sits under the crypto policy. If anything conflicts wi
 
 ## Scope
 
-This document reserves the query namespace and the method families for chain, state, transaction, contract, events, validator, and network. It is filled during the access layer wave, and the server and every client are generated from it.
+This document reserves the query namespace and the method families for chain, state, transaction, contract, events, validator, and network. It is filled during the access layer wave, and the server and every client are built from it.
 
 ## Normative specification
 
