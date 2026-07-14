@@ -19,3 +19,7 @@ The registration fee scales inversely with the length of the name, so a short na
 ## Disputes
 
 A dispute over a name routes through the justice track of the governance protocol. A registration that impersonates or that is malicious is subject to evidence bound action, using the evidence bundle and the freeze and clawback powers described in the governance specification.
+
+## Randomness
+
+Where the name service needs fair allocation, meaning a lottery or an ordering for contested names, it draws randomness from the per user verifiable random function described in the verifiable random function specification. The name service imports that function by tag and does not reimplement it. This is specification only at this stage. The registry contract is written after the Quanta compiler reaches its parser milestone, and the randomness is wired in then.
