@@ -1,29 +1,19 @@
-# POLICY-disclosure.md — Private → Public Wave Schedule
+# The disclosure policy
 
-**Status:** Normative. Governs when each repository moves from private to public.
+This policy governs when each repository moves from private to public. Every repository starts private. Write every commit as if the repository goes public tomorrow, with no secrets, no throwaway comments, and no internal only language. Disclosure happens in waves, and nothing goes public ahead of its wave.
 
-All repos start **private**. Write every commit as if the repo goes public tomorrow — no secrets, no
-throwaway comments, no internal-only language. Disclosure happens in waves; nothing goes public ahead
-of its wave.
+## The waves
 
-## Waves
+The specifications go public first. The Quantova Specs repository discloses first, so the fixed target can be audited before the implementations are.
 
-1. **Specs public first.** `Quantova-Specs` (POLICY-*, SPEC-*, AUDIT-pq-independence, HANDOFF)
-   discloses first, so the fixed target is auditable before implementations are.
-2. **Trust-critical core at devnet.** `Q-Crypto`, `QVM`, `Quanta-Smart-Contract-language`,
-   `QRC-CONSENSUS`, `Quantova-Conformance`, and `Quantova-Bench` disclose when the local 4-node
-   devnet finalizes blocks (build order Step 9).
-3. **Everything by public testnet.** Remaining repos disclose by the public testnet (Step 11).
+The trust critical core discloses at the first development network. This covers the cryptography, the virtual machine, the language, the consensus, the conformance vectors, and the benchmarks. It discloses when the local four node development network finalizes blocks.
 
-## Blocking conditions (per PART 7 of HANDOFF)
+Everything else discloses by the public testnet.
 
-- **Naming/trademark collision** (Quantova / QTOV / QVM vs. any existing project) must be resolved by
-  the founder **before any public wave**. Private development is unaffected.
-- Legal review of staking / delegation / migration is required before public testnet.
-- External audits (Q-Crypto, QVM, Quanta, QORUS) are booked and running before public testnet, and
-  closed before mainnet.
+## Blocking conditions
 
-## Rule
+A naming or trademark question, between Quantova or its asset or its virtual machine and any existing project, must be resolved by the founder before any public wave. Private development is unaffected. A legal review of staking, delegation, and migration is required before the public testnet. External audits of the cryptography, the virtual machine, the language, and the consensus are booked and running before the public testnet, and closed before mainnet.
 
-Moving a repo from private to public is a founder decision, gated on the wave above and the blocking
-conditions. An contributor never flips visibility on its own.
+## The rule
+
+Moving a repository from private to public is a founder decision, gated on the waves above and on the blocking conditions. No one flips visibility on their own.

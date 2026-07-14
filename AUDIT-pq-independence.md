@@ -1,10 +1,5 @@
-# AUDIT-pq-independence.md — FIPS Reduction Table (living)
+# The reduction table
 
-Every cryptographic operation in the stack × its exact FIPS reduction. **A row without a reduction is
-a release blocker.** Updated in the SAME PR as any new or changed crypto operation. This is layer 3 of
-the four-layer PQ-independence enforcement (see POLICY-crypto.md §6).
+This is a living record. It pairs every cryptographic operation in the stack with its exact FIPS reduction. A row without a reduction blocks release. It is updated in the same pull request as any new or changed crypto operation. This is the third layer of the four layer enforcement described in the crypto policy.
 
-| Operation | Repo / module | Algorithm | Standard | Parameter set | Vector source | Status |
-|-----------|---------------|-----------|----------|---------------|---------------|--------|
-| _(rows added as code lands)_ | | | | | | |
-
+For each operation the record notes the operation itself, the repository and module where it lives, the algorithm it uses, the standard that defines that algorithm, the parameter set, the source of the test vectors, and the status. Rows are added as code lands.

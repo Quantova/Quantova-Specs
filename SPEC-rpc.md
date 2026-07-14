@@ -1,17 +1,22 @@
-# SPEC-rpc — RPC Interface (stub)
+# Access interface
 
-**Status:** DRAFT — scaffold only. Normative content is authored here per HANDOFF.md Part 5.
-**Precedence:** subordinate to POLICY-crypto.md. Any conflict → STOP AND REPORT.
+Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+
+Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
 ## Scope
-Reserves the q_ namespace and the chain_/state_/tx_/contract_/events_/val_/net_ method families. Filled in Wave E; server and all SDK clients are generated from it.
+
+This document reserves the query namespace and the method families for chain, state, transaction, contract, events, validator, and network. It is filled during the access layer wave, and the server and every client are generated from it.
 
 ## Normative specification
-_To be authored._
 
-## Exclusions (what is unrepresentable)
-_To be authored — must be explicit; classical constructions have no valid form here._
+To be authored.
+
+## Exclusions
+
+To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
 
 ## Conformance
-Test vectors are frozen in Quantova-Conformance under `vectors/`, named `<area>.<case>.json`.
+
+Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
 

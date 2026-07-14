@@ -1,17 +1,22 @@
-# SPEC-accounts — Accounts & Addresses
+# Accounts and addresses
 
-**Status:** DRAFT — scaffold only. Normative content is authored here per HANDOFF.md Part 5.
-**Precedence:** subordinate to POLICY-crypto.md. Any conflict → STOP AND REPORT.
+Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+
+Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
 ## Scope
-Address derivation scheme_id ‖ pubkey → SHA3-256; key pinning; key rotation; scheme_id versioning for agility.
+
+This document defines address derivation from a scheme identifier and a public key through SHA 3 with a 256 bit output, together with key pinning, key rotation, and scheme versioning for agility.
 
 ## Normative specification
-_To be authored._
 
-## Exclusions (what is unrepresentable)
-_To be authored — must be explicit; classical constructions have no valid form here._
+To be authored.
+
+## Exclusions
+
+To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
 
 ## Conformance
-Test vectors are frozen in Quantova-Conformance under `vectors/`, named `<area>.<case>.json`.
+
+Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
 
