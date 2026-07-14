@@ -17,11 +17,13 @@ uint   uint256   ecrecover   pragma solidity   wei   ether
 
 ## Numeric types
 
-The unsigned types are u8, u16, u32, u64, and u128, and the signed types run i8 through i128. There is no uint256 and no 256 bit surface integer, because the machine computes in 64 bit words. Asset amounts are u128 inside the asset primitive, so a developer never picks a width for money. Checked arithmetic is the default, so overflow reverts, and a wrapping form is written explicitly for the rare modular case. Integer width has no bearing on quantum security, since the keys and hashes and signatures are all 256 bit class NIST primitives.
+The unsigned types are u8, u16, u32, u64, and u128, and the signed types run i8 through i128. There is no uint256 and no 256 bit surface integer, because the machine computes in 64 bit words. Asset amounts are u128 inside the asset primitive, so a developer never picks a width for money. Integer width has no bearing on quantum security, since the keys and hashes and signatures are all 256 bit class NIST primitives.
+
+Checked arithmetic is the default, so an overflow reverts. A stored integer that grows by unbounded external input can revert forever once it saturates and strand the contract, so a bare addition of unbounded external input into a stored integer is a compile error, and the author states the intended behavior in one of three explicit ways. A limits clause that bounds the result proves the addition cannot overflow and needs no further mark. The explicit form checked of an expression, written checked(a + b), keeps the revert on overflow and records that the author accepted it. The explicit form wrapping of an expression, written wrapping(a + b), takes modular arithmetic for the rare intended case. A safe bounded counter stays clean to write through any of these, while an unacknowledged unbounded addition cannot compile.
 
 ## Keyword register
 
-The keywords are contract, entry, guard, genesis, caller, state, invariant, event, emit, asset, let, signed by, sealed, Quorum, after, from, mints, burns, conserves, writes, reads, limits, and denies. The divergences are deliberate. It is entry and not function, guard and not require, genesis and not constructor, caller and not the sender field, and state blocks and Map and Registry and not mapping.
+The keywords are contract, entry, guard, genesis, caller, state, invariant, event, emit, asset, let, signed by, sealed, Quorum, after, from, mints, burns, conserves, writes, reads, limits, denies, checked, and wrapping. The divergences are deliberate. It is entry and not function, guard and not require, genesis and not constructor, caller and not the sender field, and state blocks and Map and Registry and not mapping.
 
 ## The five signature constructs
 
@@ -35,7 +37,7 @@ invariant. A contract level `invariant Expr;` inserts a gas metered check of Exp
 
 Quorum and after. A parameter of type `Quorum<M of N, set>` is constructed by the machine only from M valid guardian signatures, and an entry clause `after 7 days from anchor` compiles to a consensus time guard.
 
-sealed. A parameter modifier `p: sealed T` routes the argument through `MLKEM_ENCAP` so it is confidential in the mempool and is opened only at execution.
+sealed. A parameter modifier `p: sealed T` routes the argument through `MLKEM_ENCAP` so it is confidential in the mempool and is opened only at execution. An entry that pools a contributed asset into contract state for later settlement, does not pay out in the same call, and decides the outcome on a field of an order parameter must take that order sealed. A pooled competitive order carried in the clear is a compile error that names the parameter, so front running of order flow is not merely blunted but inexpressible.
 
 ## Grammar
 
@@ -72,6 +74,9 @@ guard_stmt     = "guard" , expr , ";" ;
 let_stmt       = "let" , ident , "=" , expr , ";" ;
 emit_stmt      = "emit" , ident , "(" , [ args ] , ")" , ";" ;
 assign_stmt    = lvalue , ( "=" | "+=" | "-=" ) , expr , ";" ;
+
+checked_expr   = "checked" , "(" , expr , ")" ;
+wrapping_expr  = "wrapping" , "(" , expr , ")" ;
 
 type           = ident , [ generic_args ] ;
 generic_args   = "<" , generic_arg , { "," , generic_arg } , ">" ;
@@ -191,7 +196,7 @@ contract TreasuryBond {
 
 ## Exploit suite
 
-Every classic exploit must be inexpressible or a compile error, and the compiler test suite carries a case for each. Reentrancy cannot be written because there is no synchronous external call expression, so control never reenters an entry in the middle of execution. An unchecked overflow cannot happen because checked arithmetic is the default and overflow reverts. A forged authorization cannot be built because a signed value comes only from a real machine verification and ecrecover does not exist. An infinite mint is a compile error because supply changes only on the declared and quorum gated path that conservation proves. A dropped or locked value is a compile error because an asset is linear and must be consumed on every path. Front running of order flow is blunted because a sealed parameter is hidden in the mempool.
+Every classic exploit class is a compile error, and the compiler test suite asserts that each fails to compile for its own reason. Reentrancy cannot be written because there is no synchronous external call expression, so an attempt to call out and regain control does not parse. An unchecked overflow cannot be written because a bare addition of unbounded external input into a stored integer is rejected, and the author must bound the result with a limits clause or take the explicit checked or wrapping form. A forged authorization is rejected because authority comes only from a signed value produced by a real machine verification, so gating on an unsigned parameter field does not compile and ecrecover does not exist. An infinite mint is rejected because supply changes only on the declared and quorum gated path that conservation proves. A dropped or locked value is rejected because an asset is linear and must be consumed on every path. Front running of order flow is rejected because a pooled competitive order must be sealed, so a visible competing amount cannot be expressed. Safe by construction is total here, all six classes fail to compile rather than relying on a runtime revert or a developer choice.
 
 ## Conformance
 
