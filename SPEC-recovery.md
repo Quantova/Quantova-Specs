@@ -1,22 +1,21 @@
 # Key recovery
 
-Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
+This document defines how an account recovers from a lost key. Every recovery path is post quantum only. There is no email reset, no classical escrow, and no third party that can move funds on its own.
 
-## Scope
+## Guardian recovery
 
-This document defines lost key recovery through guardian sets and time locked paths. Every recovery path is post quantum only. It uses approvals from post quantum signatures, with no email reset and no classical escrow anywhere.
+An account may name a set of guardians, each an account with its own post quantum key. A recovery is a request signed by the account owner where possible, or proposed by the guardians, and it takes effect only when a threshold of the guardians approve it with their machine lattice signatures. The threshold and the guardian set are chosen by the account owner.
 
-## Normative specification
+## Time locked recovery
 
-To be authored.
+A recovery carries a time lock. After the guardians approve, the recovery waits for a stated delay before it takes effect, and during the delay the original owner can cancel it with the original key. This window defends against a set of guardians that turns malicious, since the true owner has time to stop a wrongful recovery.
 
-## Exclusions
+## Binding a new key
 
-To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
+A recovery binds a new post quantum key to the account and retires the old one. The new key is derived through the standard seed pipeline, so the recovered account has the same layered structure as any account. The name in the name service is repointed by the recovery.
 
-## Conformance
+## No classical path
 
-Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
-
+There is no path that uses a classical signature, a password sent off chain, or a custodian that holds the key. Every step is a post quantum signature checked on chain.
