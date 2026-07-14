@@ -1,22 +1,21 @@
 # Snapshot genesis migration
 
-Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
+Mainnet launches from a snapshot of the legacy chain, not from a code merge and not from a bridge to the legacy chain. The legacy chain is never merged.
 
-## Scope
+## The snapshot
 
-This document defines the snapshot genesis migration. Balances and stakes are snapshotted at an announced height and claimed by binding old keys to new post quantum keys. There is no code merge and no bridge to the legacy chain.
+At an announced height on the legacy chain, the balances and the stakes are snapshotted. The snapshot is a fixed record, published so anyone can check it, and it is the sole input to the genesis state of the new chain.
 
-## Normative specification
+## The claim
 
-To be authored.
+A holder claims the balance snapshotted for a legacy account by binding the old account to a new machine lattice key. The claim is a message that proves control of the old account and names the new post quantum key, and once it is accepted the balance is credited to the new account. The proof of control is checked once at the Airlock and never again, so no classical verification enters ongoing operation.
 
-## Exclusions
+## No legacy code and no legacy bridge
 
-To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
+There is no code merge of legacy code into the new stack, and there is no standing bridge to the legacy chain. The migration is a one time snapshot and claim. After the claim window the legacy chain is done, and the new chain carries the balances forward under post quantum keys only.
 
-## Conformance
+## The window
 
-Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
-
+The claim window is stated at genesis. Balances not claimed within the window follow the policy set at genesis, which is decided by governance.
