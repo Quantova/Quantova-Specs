@@ -8,7 +8,7 @@ For each operation the record names the operation, the repository and module whe
 
 The SHA3 and SHAKE hashing lives in the crypto crate sha3 module and reduces to FIPS 202. It is validated against the FIPS 202 known answer tests.
 
-The machine lattice signature lives in the crypto crate ml dsa module and covers key generation, signing, and verification for parameter set 65. It reduces to FIPS 204 and is validated against the official NIST vectors.
+The module lattice signature lives in the crypto crate ml dsa module and covers key generation, signing, and verification for parameter set 65. It reduces to FIPS 204 and is validated against the official NIST vectors.
 
 The key encapsulation lives in the crypto crate ml kem module and covers key generation, encapsulation, and decapsulation for parameter set 768. It reduces to FIPS 203 and is validated against the official NIST vectors.
 

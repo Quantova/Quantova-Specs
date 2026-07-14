@@ -6,7 +6,7 @@ QORUS is the consensus of Quantova. It is a post quantum byzantine fault toleran
 
 ## The three stages
 
-Stage one is the byzantine fault tolerant core at genesis. It has 150 millisecond slots, deterministic leader rotation, attestations signed with the machine lattice signature, and certificate aggregation done with a STARK rather than a pairing aggregate, since the pairing aggregate is broken by a quantum computer. Execution runs in parallel.
+Stage one is the byzantine fault tolerant core at genesis. It has 150 millisecond slots, deterministic leader rotation, attestations signed with the module lattice signature, and certificate aggregation done with a STARK rather than a pairing aggregate, since the pairing aggregate is broken by a quantum computer. Execution runs in parallel.
 
 Stage two adds recursive succinctness to the certificate and opens the one tap validator in the application to the public.
 
@@ -20,7 +20,7 @@ All heavy work, meaning execution, signature verification, and proving, is done 
 
 ## A round
 
-A round has a deterministic leader drawn from the committee. The leader proposes a block. The committee members verify it and attest with the machine lattice signature. When a supermajority of two thirds plus one has attested, the attestations aggregate into a single certificate and the block is final. The certificate travels in the certificate slot of the block header, and its digest feeds the beacon for the next block. Finality is deterministic and sub second for the global validator set. The beacon derives from the aggregated certificate, not from any single validator, so no participant can bias leader election without controlling the supermajority.
+A round has a deterministic leader drawn from the committee. The leader proposes a block. The committee members verify it and attest with the module lattice signature. When a supermajority of two thirds plus one has attested, the attestations aggregate into a single certificate and the block is final. The certificate travels in the certificate slot of the block header, and its digest feeds the beacon for the next block. Finality is deterministic and sub second for the global validator set. The beacon derives from the aggregated certificate, not from any single validator, so no participant can bias leader election without controlling the supermajority.
 
 ## The resource budget
 

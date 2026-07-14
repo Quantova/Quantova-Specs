@@ -10,7 +10,7 @@ At an announced height on the legacy chain, the balances and the stakes are snap
 
 ## The claim
 
-A holder claims the balance snapshotted for a legacy account by binding the old account to a new machine lattice key. The claim is a message that proves control of the old account and names the new post quantum key, and once it is accepted the balance is credited to the new account. The proof of control is checked once at the Airlock and never again, so no classical verification enters ongoing operation.
+A holder claims the balance snapshotted for a legacy account by binding the old account to a new module lattice key. The claim is a message that proves control of the old account and names the new post quantum key, and once it is accepted the balance is credited to the new account. The proof of control is checked once at the Airlock and never again, so no classical verification enters ongoing operation.
 
 ## No legacy code and no legacy bridge
 

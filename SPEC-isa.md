@@ -14,7 +14,7 @@ Instructions fall into groups. There are arithmetic and logic instructions over 
 
 ## The cryptographic instructions
 
-The machine exposes the post quantum operations as native instructions so a contract never rolls its own cryptography. There is a verification instruction for machine lattice signatures. There is a verification instruction for hash based signatures. There is a hashing instruction over SHA3. There is a Merkle proof verification instruction. There is a random function verification instruction that checks a verifiable random output and its proof. And there is a key encapsulation instruction. There is no instruction that verifies a classical signature, and none can be added, because no classical primitive exists in the machine.
+The machine exposes the post quantum operations as native instructions so a contract never rolls its own cryptography. There is a verification instruction for module lattice signatures. There is a verification instruction for hash based signatures. There is a hashing instruction over SHA3. There is a Merkle proof verification instruction. There is a random function verification instruction that checks a verifiable random output and its proof. And there is a key encapsulation instruction. There is no instruction that verifies a classical signature, and none can be added, because no classical primitive exists in the machine.
 
 ## Gas
 
