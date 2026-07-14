@@ -29,3 +29,7 @@ The maximum proof size and the maximum verify time on a reference phone from the
 ## Safety and liveness
 
 The protocol is safe as long as fewer than one third of the committee is byzantine, meaning it never finalizes two conflicting blocks at one height. It is live as long as a supermajority is online, meaning it keeps finalizing. A deterministic simulator models these properties under fault injection before the protocol is built, and a formal model in a specification language checks safety and liveness before stage one activates.
+
+## Consensus uses one signature scheme
+
+Validator attestations and the aggregated finality certificate use ML DSA only. A user account may sign with any registered scheme, but that choice never reaches consensus. SLH DSA and FN DSA are never wired into a consensus attestation or the certificate. Mixing schemes in the hot path would complicate the prover and the certificate for no benefit and would put finality and throughput at risk. This law is fixed and is written in both this specification and the accounts specification.
