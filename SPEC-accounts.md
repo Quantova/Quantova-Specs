@@ -31,3 +31,15 @@ Bulky public keys appear only inside the signature envelope. The wrapper verifie
 ## Scheme agility
 
 A scheme identifier byte precedes every key. The Q format is stable across future NIST schemes, so the address and export forms do not change when a new scheme is added.
+
+## The scheme identifier registry
+
+A one byte scheme identifier prefixes every key and every signature, and verification dispatches on it. The registry is fixed. The value 0x01 is ML DSA 65 and is the default. The value 0x02 is SLH DSA. The value 0x03 is FN DSA, which is pre final and stays behind the fn dsa feature flag, off in every default build until the standard is final and audited. A contiguous range of values above these is reserved for other parameter sets of the same schemes, for example ML DSA 44 and ML DSA 87, so a future set never renumbers an existing one. The address is the SHA3 256 hash of the scheme identifier followed by the public key, so the address does not reveal the scheme. The signature envelope carries the scheme identifier, and a verifier reads it and runs the matching verification.
+
+## Scheme choice is per account and never per consensus
+
+A user chooses a signature scheme per account at signup, and a user account and its transactions may use any registered scheme. This choice never reaches consensus. Validator attestations and the aggregated finality certificate use ML DSA only. A worker must never wire SLH DSA or FN DSA into a consensus attestation or the certificate, because mixing schemes in the hot path complicates the prover and the certificate for no benefit and would put finality and throughput at risk. This law is written here and in the consensus specification so it is not crossed by accident.
+
+## Wallet framing
+
+The wallet presents the scheme choice by property, not by raw name, with a default. ML DSA is the recommended balanced default. SLH DSA is the most conservative choice and has larger signatures. FN DSA has the smallest signatures but uses a standard that is still being finalized, and that is disclosed at the point of choice. The competition names belong to the wallet display only, and the FIPS names are used everywhere in the code, the specifications, and the identifiers.
