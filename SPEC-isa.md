@@ -23,3 +23,7 @@ Every instruction has a fixed gas cost. The cost of a cryptographic instruction 
 ## The container
 
 A contract is a bytecode container. The container holds the code, a constant pool, the state access manifest that lists the reads and writes of each entry, and the interface descriptor with its selectors. Every digest the machine surfaces is rendered in the identifier format, never in Ethereum hex.
+
+## Signature verification dispatches on the scheme
+
+The machine has a verification instruction for each account signature scheme. There is one for ML DSA and one for SLH DSA, and a third for FN DSA that sits behind the same feature flag the crypto crate uses for fn dsa and is off in every default build until the standard is final. When the machine checks an account signature it reads the one byte scheme identifier from the envelope and dispatches to the matching verify instruction. The gas cost of each verify instruction is taken from the benchmark of that scheme in the crypto crate, not guessed.
