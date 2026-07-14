@@ -1,22 +1,17 @@
-# Contract interface descriptor
+# The contract interface descriptor
 
-Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
+The contract interface descriptor is the interface of a contract. It plays the role that an application binary interface plays elsewhere, and it is embedded in every compiled contract and fetchable from the chain, so no application ever depends on a file kept outside the chain.
 
-## Scope
+## Selectors
 
-This document defines the contract interface descriptor, which is the application binary interface. It covers the layout, the SHA 3 selectors, and the rule that embeds the descriptor in every compiled container.
+Every entry and every event has a selector. A selector is the first bytes of the SHA3 hash of the canonical signature string of the entry or event, where the signature string is the name followed by the parenthesized parameter types in order, written with the language type names. A caller names an entry by its selector.
 
-## Normative specification
+## Embedding
 
-To be authored.
+The compiler places the descriptor inside the bytecode container. A node that holds the contract can return its descriptor, so a client learns how to call a contract from the chain itself. The descriptor is part of what the contract address commits to, so it cannot be swapped without changing the contract.
 
-## Exclusions
+## Rendering
 
-To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
-
-## Conformance
-
-Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
-
+Any digest in the descriptor, including a selector shown to a person, is rendered in the identifier format, never in Ethereum hex.
