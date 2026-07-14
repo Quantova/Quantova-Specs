@@ -1,7 +1,7 @@
 # SPEC-governance — QONCORD Constitutional Governance
 
 **Status:** Normative (Draft v0.1). **Precedence:** subordinate to POLICY-crypto.md; any conflict →
-STOP AND REPORT. **Implemented by:** `QONCORD` (runtime crates) and its Quanta system contracts.
+STOP AND REPORT. **Implemented by:** `QONCORD` (protocol crates) and its Quanta system contracts.
 **Depends on:** SPEC-consensus-qorus (certificate wrapper), q-prover (STARK circuits), SPEC-primitives.
 
 Tagline for all governance surfaces: **no vote above the law.**
@@ -19,7 +19,7 @@ period; Enact is the delay from passing to execution.
 
 | # | Track | Powers | Deposit | Decision | Enact | Approval | Support |
 |---|-------|--------|---------|----------|-------|----------|---------|
-| 1 | Constitution | amend constitution, track params, runtime upgrades | 100k QTOV | 28d | 14d | ≥60% | ≥25% of all staked |
+| 1 | Constitution | amend constitution, track params, node logic upgrades | 100k QTOV | 28d | 14d | ≥60% | ≥25% of all staked |
 | 2 | Crypto Transition | add/retire NIST schemes, key-rotation windows | 50k | 28d | 30d | ≥66% | ≥20% |
 | 3 | Monetary | mint native QTOV, fee burn/split | 50k | 21d | 7d | ≥66% | ≥20% |
 | 4 | Treasury | spend across small/medium/large lanes | 1k–25k | 7–21d | 2–7d | sliding per lane | sliding per lane |
@@ -28,7 +28,7 @@ period; Enact is the delay from passing to execution.
 | 7 | Standards (QSP) | accept/deprecate QSPs, signaling | 500 | 14d | — | simple majority | — |
 
 ### 1.1 Track 1 — Constitution
-Amends the constitution, track parameters, and runtime upgrades. Highest deposit and the only track
+Amends the constitution, track parameters, and node logic upgrades. Highest deposit and the only track
 that may change frozen parameters or the invariants of §6, and even it is bounded by §6 (the five
 invariants hold against Track 1).
 
@@ -74,7 +74,7 @@ Validators vote as ordinary stakers with zero extra weight. There is no validato
 2. **Per-epoch ceiling.** Minting is capped by a hard per-epoch ceiling. Genesis value: cumulative
    minting ≤2% per year.
 3. **Unenactable over-ceiling.** A referendum that would mint above the ceiling is not outvoted — it
-   is UNENACTABLE. The runtime refuses it the way it refuses a malformed transaction.
+   is UNENACTABLE. The protocol refuses it the way it refuses a malformed transaction.
 4. **Mint record.** Every mint emits an event carrying the referendum identifier and the tally
    certificate.
 
@@ -114,7 +114,7 @@ No track may cross these, not even Track 1.
    parameters, or governance locks.
 3. **Emergency never moves value.** Emergency pauses, never moves value; every pause auto-expires.
 4. **Runtime invariants are unenactable if violated.** Mint ceilings, freeze expiry, appeal windows,
-   and scope-locks are runtime invariants; a violating referendum is unenactable.
+   and scope-locks are protocol invariants; a violating referendum is unenactable.
 5. **Permanent record.** Every enacted referendum permanently stores the proposal hash, the evidence
    hash (if judicial), the STARK tally certificate, and the enactment receipt.
 
@@ -127,7 +127,7 @@ tally, built from the q-prover circuits and traveling the same certificate wrapp
 
 ## 7. Enactment record schema
 
-For every enacted referendum the runtime stores: proposal hash, evidence hash (present only for
+For every enacted referendum the protocol stores: proposal hash, evidence hash (present only for
 judicial actions), STARK tally certificate, and enactment receipt. The record is permanent and
 Merkle-committed with the rest of state.
 
