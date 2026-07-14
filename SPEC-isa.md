@@ -1,17 +1,22 @@
-# SPEC-isa — QVM Instruction Set
+# Virtual machine instruction set
 
-**Status:** DRAFT — scaffold only. Normative content is authored here per HANDOFF.md Part 5.
-**Precedence:** subordinate to POLICY-crypto.md. Any conflict → STOP AND REPORT.
+Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+
+Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
 ## Scope
-The QVM opcode table: register ISA, 64-bit words, deterministic gas, and the native PQ opcodes (MLDSA_VERIFY, SLH_VERIFY, SHA3, MERKLE_VERIFY, VRF_VERIFY, MLKEM_ENCAP).
+
+This document defines the virtual machine instruction set. It is a register machine with 64 bit words, deterministic gas, and native post quantum opcodes for signature verification, hashing, Merkle proofs, randomness, and key encapsulation.
 
 ## Normative specification
-_To be authored._
 
-## Exclusions (what is unrepresentable)
-_To be authored — must be explicit; classical constructions have no valid form here._
+To be authored.
+
+## Exclusions
+
+To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
 
 ## Conformance
-Test vectors are frozen in Quantova-Conformance under `vectors/`, named `<area>.<case>.json`.
+
+Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
 

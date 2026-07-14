@@ -1,17 +1,22 @@
-# SPEC-codec — Canonical Encoding
+# Canonical encoding
 
-**Status:** DRAFT — scaffold only. Normative content is authored here per HANDOFF.md Part 5.
-**Precedence:** subordinate to POLICY-crypto.md. Any conflict → STOP AND REPORT.
+Status. This document is a draft scaffold. The normative content is authored here as the build order reaches it.
+
+Precedence. This document sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
 ## Scope
-The canonical wire encoding: exactly one valid encoding per value; deterministic, length-delimited; the ingress grammar the Airlock enforces.
+
+This document defines the canonical wire encoding. Every value has exactly one valid encoding. The encoding is deterministic and length delimited, and it is the grammar the Airlock enforces at ingress.
 
 ## Normative specification
-_To be authored._
 
-## Exclusions (what is unrepresentable)
-_To be authored — must be explicit; classical constructions have no valid form here._
+To be authored.
+
+## Exclusions
+
+To be authored. Every exclusion must be explicit. Classical constructions have no valid form here.
 
 ## Conformance
-Test vectors are frozen in Quantova-Conformance under `vectors/`, named `<area>.<case>.json`.
+
+Test vectors are frozen in the Quantova Conformance repository under the vectors folder, named by area and case.
 
