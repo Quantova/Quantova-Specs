@@ -12,4 +12,4 @@ Author every commit as the repository owner only, with no other attribution anyw
 
 ## Claims discipline
 
-Say sub second deterministic finality, one hundred thousand or more transactions per second through batch proofs and parallel execution, near trustless Bitcoin deposits, and trust minimized exits. Never say millisecond global finality, fully trustless bridge, or quantum proof.
+Say sub second deterministic finality, near trustless Bitcoin deposits, and trust minimized exits. Do not claim a transactions per second figure in anything public, throughput is held until it is measured end to end, and the earlier committed envelope of one hundred thousand a second is retired because a committed number is a promise and this is not one. The internal throughput numbers a worker builds against are kept separate in the handoff and none is published. Never say millisecond global finality, fully trustless bridge, or quantum proof.
