@@ -1,0 +1,45 @@
+# Sortition uniqueness, the grinding flaw and the options
+
+Status. This is a decision paper for the founder, not yet normative. It states a real security flaw in the current sortition and lays out the options to fix it, each with its cost and its security. The verifiable random function default is reopened while the flaw is open. No throughput work proceeds past it, and nothing about performance or the paper is published until it is resolved.
+
+## The flaw
+
+The committee sortition draws a verifiable random output for a validator by signing a beacon input with the validator's key and hashing the signature, and the validator is a committee member when that output falls under a threshold set by its stake. The draw is stake weighted and unpredictable only if the output is unique, one output per validator per input, and that rests on the signature being derandomized, one signature per key and input.
+
+The signature is not unique. A FIPS 204 signature does not carry its randomizer, and a hedged signature made with a different randomizer over the same key and input is equally valid and produces a different output. A light client, without the secret key, cannot tell a derandomized signature from a hedged one, so it cannot reject the hedged one. So a validator can grind. It signs the known beacon input again and again with fresh randomizers, computes the output each time, and keeps only a signature whose output falls under its threshold.
+
+The grind is cheap. At about 0.45 milliseconds for a module lattice signature, a validator with one percent of stake needs on the order of one hundred attempts to land under a one percent threshold, about 45 milliseconds, well inside a 150 millisecond slot, and the beacon is known the moment the previous height finalizes. So a one percent validator can place itself on every committee for trivial compute, and grind toward the lowest output to win leadership far more often. This does not weaken stake weighted sortition, it removes it, and it hands an adversary the very committee that private sortition exists to keep unpredictable. The flaw is not new, the hash based construction had the identical hole, but moving to the module lattice signature made the grind about three thousand times cheaper and forces the issue now.
+
+The named enforcement does not exist. The specification and its paper describe derandomized signing as the source of uniqueness, but a rule that reads a signature cannot check derandomization, because the randomizer is not in the encoding. The honest sampler having no path to hedge defends against an accident, not against an adversary who signs with a different program. So the uniqueness argument has a real gap for an adversarially chosen key. This must be corrected in the specification, and nothing goes to a preprint until the gap is closed.
+
+## Fusing verification is not derandomization
+
+State clearly what does not fix this, because it is an easy conflation and it was made. Fusing the committee's signature verification into the certificate, the throughput and succinctness work, binds the statement that these signatures verify. Grinding resistance needs a different statement, that this signature was produced with a zero randomizer. They are not the same. A hedged and ground signature verifies perfectly, the conformance vector says so, so a proof that binds verification binds a ground signature just as happily. Closing the grind requires a proof over the signing computation with the randomizer fixed at zero, which puts the secret key in the witness and is a categorically heavier circuit than verification. So the fusing work improves throughput and makes the certificate a real security replacement for the task of checking that the signatures verify, and it leaves the grinding hole exactly where it is. The two are reported separately, and the grinding hole is not called closed by fusing.
+
+## Option A, prove derandomization inside the derivation proof
+
+The proof carries a STARK that the signature is the canonical derandomized one, the output of the FIPS 204 signing algorithm run with a zero randomizer over the key and the input. A verifier checks that proof, so a signature made with any other randomizer has no valid proof and grinding is impossible, there is exactly one signature the proof accepts. This is the mechanism the lattice construction always intended and that the fast form deferred.
+
+The cost is the concern. The proof must cover the signing computation, which is heavier than verification, the masking expansion, the matrix product, the challenge, the norm checks, and the rejection loop that retries until the norms pass. A single signing proof is likely on the order of a second, far above a 150 millisecond slot, and it is the validator's own work since only the validator holds the key, so naively it sits on the critical path and brings back the multi second floor the module lattice switch just removed.
+
+There is a way off the path. If the committee for a slot is fixed by a beacon several slots earlier, each selected validator has that lead time to precompute its sortition proof, and the only work on the critical path is verifying the proof, tens of milliseconds. This needs a consensus change, a beacon lookahead, and it trades a little unpredictability, the committee is known a few slots ahead though still not grindable. The real cost of a single signing proof and the lookahead depth both need measuring before this is chosen. Security is strong and it stays inside the NIST only law. The open question is whether the precomputed proof and the lookahead are acceptable.
+
+## Option B, a genuinely unique construction
+
+Replace the signature and hash with a construction whose output is unique by design, a unique signature or a lattice verifiable random function where one key and one input admit exactly one accepting output. Grinding is then impossible with no per draw proof, and the draw stays fast, on the order of a module lattice verification.
+
+The obstacle is the crypto law. Such a construction is not among the NIST standardized primitives, so adopting it takes on a non standardized assumption, which the supreme crypto policy forbids without an external cryptanalysis and a crypto transition governance action. So option B is the cleanest cryptographically and potentially the fastest, and it is a policy decision, not only an engineering one. It needs the crypto transition track, an external report, and an accepted new assumption, and it is the only option that gives both speed and grinding resistance without a per draw proof or added state.
+
+## Option C, bound the grind with one time keys
+
+Keep the fast construction but stop a validator from taking many attempts. Each draw uses a fresh one time key from a chain managed ledger that consumes the key on use, so a validator has one draw per slot per key rather than unlimited retries. This is the one time key mechanism the consensus specification already reserves for a later stage. The number of keys a validator holds is bounded and tied to its stake, so its grinding is bounded to that budget rather than to its raw compute, which is the change that matters, an attacker can no longer buy committee membership with a laptop.
+
+The cost is protocol state and complexity, a ledger of one time keys, their registration and consumption, and care that the budget cannot be inflated beyond stake. It stays inside the NIST only law, the keys are hash based. Security is a bound rather than an impossibility, a validator can still grind up to its budget, so the budget must be small, ideally one per slot, and the analysis has to show the residual advantage is negligible. It is the pragmatic middle, weaker in guarantee than A or B but far cheaper than A and inside the law unlike B.
+
+## What does not work
+
+A public randomizer, deriving the signing randomness from public data so a verifier can recheck it, breaks the signature, the masking must be secret or the secret key leaks. Delaying or committing the beacon does not help, the grind happens after the beacon is known and the signature depends on it, so it cannot be committed before. Accepting the grind and capping committee membership does not hold, the flaw lets a small validator sit on every committee, which is the capture the cap is meant to prevent.
+
+## Recommendation
+
+Measure option A first, the true cost of one signing derivation proof and the lookahead depth it needs, because if that proof is affordable off the critical path it is the right answer, grinding impossible, inside the law, and the mechanism the paper always named. If it is too heavy, option C, the one time key bound, is the NIST compatible fallback that stops the cheap grind now, and option B, a unique construction, is the clean long term answer that needs a policy decision and external cryptanalysis. In every case correct the specification now to delete the claim that derandomization is enforceable from the encoding and to state the uniqueness gap plainly. The decision is the founder's, and it is not made here, only the cost and the security of each are laid out.
