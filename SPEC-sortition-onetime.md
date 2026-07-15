@@ -26,7 +26,11 @@ Committee membership is stake neutral under splitting because the thresholds sca
 
 ## The slashing that backs the bound
 
-C is a bound rather than an impossibility, and the bound holds only if the penalty for cheating within an account exceeds any gain, so the slashing is part of this design and is decided with it. Two draws revealed for one slot from one account, or a preimage used out of its position, are detectable from the chain and are slashed on the same footing as equivocation, a hard slash of the account's bond. The gain from cheating is at most one committee seat or one leadership, whose marginal value is the reward for a single attestation or a single proposal among a committee of about five hundred, tiny against a full stake bond. So the penalty exceeds the gain by orders of magnitude. The exact fractions are the slashing numbers in the economics spec, decided together with this design.
+C is a bound rather than an impossibility, and the bound holds only if the penalty for cheating within an account exceeds any gain, so the slashing is part of this design and is decided with it. Two draws revealed for one slot from one account, or a preimage used out of its position, are detectable from the chain and are slashed on the same footing as equivocation, a hard slash of the account's bond. The gain from cheating is at most one committee seat or one leadership, whose marginal value is the reward for a single attestation or a single proposal among a committee of about five hundred, tiny against a full stake bond. So the penalty exceeds the gain by orders of magnitude. The decided fractions are in the economics spec, one hundred percent of the bond and a permanent ban for these attributable faults.
+
+## Withholding, an accepted residual
+
+One thing is not preventable and is not an attack, so it is written here as known and accepted. An account draws its one output for a slot, sees that it is above its threshold and unfavourable, and simply reveals nothing. This is invisible, there is no evidence of it on chain, and it is unpunishable. But it costs the account a seat it could have taken rather than gaining it one, so it forfeits participation rather than stealing it, and it does not bias the committee toward the withholder. It is recorded as an accepted residual of the design, not a hole to be closed.
 
 ## What this means for the uniqueness theorem
 
