@@ -48,7 +48,7 @@ Algorithms are versioned by a scheme identifier, and the stack is built for agil
 
 ## Claims discipline
 
-In every document, comment, commit, and pull request, say sub second deterministic finality, one hundred thousand or more transactions per second through batch proofs and parallel execution, near trustless Bitcoin deposits, and trust minimized exits. Never say millisecond global finality, fully trustless bridge, or quantum proof.
+In every document, comment, commit, and pull request, say sub second deterministic finality, near trustless Bitcoin deposits, and trust minimized exits. Do not claim a transactions per second figure in anything public. Throughput is held until it is measured end to end, and the earlier committed envelope of one hundred thousand a second is retired, because a committed number is a promise and this is not one. The internal throughput numbers a worker builds against, the measured, the architecture ceiling at the floor, and the design target, are kept separate in the handoff and none of them is published. Never say millisecond global finality, fully trustless bridge, or quantum proof.
 
 ## Escalation
 
