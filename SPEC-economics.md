@@ -10,7 +10,17 @@ The native asset is QTOV. It pays fees, it is staked by validators, and it is th
 
 ## Validator rewards
 
-A validator earns a reward for verification work in each round it is on the committee. The reward is paid from the fee flow and, where governance allows, from the capped issuance. A validator is never paid for being offline and is slashed only for equivocation.
+A validator earns a reward for verification work in each round it is on the committee. The reward is paid from the fee flow and, where governance allows, from the capped issuance. A validator is never paid for being offline. The slashing rule and the size of the yield are reopened by the permissionless server class amendment and are held for the founder decision, set out in the validator economics under permissionless section below.
+
+## Validator economics under permissionless validation
+
+The permissionless server class amendment reopens three economic questions, and each is held for the founder decision, not resolved here.
+
+The slashing model. A permissionless set cannot eject a bad operator by revoking approval, so slashing is the only enforcement. The proposed model slashes for equivocation, signing two different blocks at one height, as before, and adds a penalty for sustained downtime, since in a set of paid server operators unpunished unreliability is a liveness attack surface rather than the unpredictable dropping of a phone. Equivocation is a hard slash of a large fraction of the offending stake, because it is unambiguous and attributable to the certificate. Downtime is a graduated penalty that begins only after a grace window and scales with the duration and with the share of the set offline together, so a brief outage costs little, a persistent one costs more, and an honest operator with normal uptime is never meaningfully exposed. The exact fractions, the grace window, and the curve are held for the founder decision, and nothing is implemented until then.
+
+The staking model for holders. A holder staking 2 thousand QTOV through the application participates without running hardware, and the way that stake reaches consensus is a founder decision. Under delegation the holder chooses a validator and shares its reward and its slashing exposure, which disperses power across many chosen validators. Under pooling the stake sits behind an operator that runs the node, which concentrates power in the pool operator. The choice materially changes the staking, the rewards, and the decentralization of the set, so it is held.
+
+The yield. The reward that makes running a validator rational was sized when a validator was a phone class near zero cost participant. A server operator pays real infrastructure, so the yield and the fee share must cover that cost and a margin, or the permissionless set is permissionless only on paper. The two levers are the issuance yield within the two percent mint ceiling, and the share of the transaction fee that flows to the validators of the round rather than to the treasury, which at real throughput is the larger and more sustainable source. The arithmetic, the realistic infrastructure cost, the break even stake at several yields, and the fee revenue at the target throughput, is delivered to the founder with the options, and the numbers are held for the decision.
 
 ## The prover auction
 
