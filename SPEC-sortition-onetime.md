@@ -10,6 +10,8 @@ The old sortition signs the beacon with the validator key and hashes the signatu
 
 Each staking account commits, at registration and bonded to its stake, the Merkle root of a tree of one time preimages, one leaf per slot it will serve. The root is on chain in the stake registry. For slot N the account's sortition output is the hash of its preimage at position N together with the beacon of slot N, and the credential it presents is that preimage with its Merkle path to the registered root. The account is a committee member when the output falls under a threshold set by its stake, exactly as before.
 
+The slot count, the number of leaves in the tree, is one leaf per slot the account will serve, and it must not be read as a single fixed number. The consensus default is sixty four, small and for tests. The harness raises it to four thousand and ninety six so a sustained measured run is not bounded at sixty four finalised heights, which is a harness value and nothing more. A real chain sizes it against the bonding period, one slot per height over a validator's bonded life, which is far larger than either, so neither the harness number nor the default is the mainnet parameter. The cost of the count is linear in the tree build at registration, which hashes every leaf once, and it is the log of the count in the credential Merkle path, so a larger count is a real registration cost a chain sizes deliberately, not a free dial.
+
 Verification accepts the credential only when the revealed preimage sits at position N in the account's registered root, the Merkle path checks, and the recomputed output matches. A preimage at any other position, or against any root not in the stake registry, is rejected.
 
 ## The enforcement and the budget as a number
