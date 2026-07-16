@@ -2,11 +2,11 @@
 
 Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-The transport is our own protocol over QUIC. It uses ML KEM for the key exchange and the module lattice signature for the identity handshake. It uses no external peer library and no classical key exchange, including on development networks.
+The transport is our own protocol over a reliable byte stream, which is TCP today. It uses ML KEM for the key exchange and the module lattice signature for the identity handshake. It uses no external peer library and no classical key exchange, including on development networks. The record named QUIC and the implementation runs the post quantum channel over a reliable byte stream, and the reconciliation in OPTIONS-quic-vs-tcp.md settles that in favour of the byte stream, because the protocol's own loss tolerance, any k erasure coded shards and a supermajority of attestations, already covers most of what QUIC would buy. QUIC is revisited only if a measured wide area run shows the byte stream's head of line blocking blows the slot budget.
 
 ## The handshake
 
-Two peers open a QUIC connection and run a post quantum handshake. Each peer has a long term module lattice identity key whose public part is its peer identity. The peers exchange ML KEM encapsulations to establish a shared secret, and each signs the transcript with its identity key so the other knows who it is talking to. There is no elliptic curve key exchange anywhere. A peer identity is rendered in the identifier format, never in hex.
+Two peers open a reliable byte stream connection and run a post quantum handshake. Each peer has a long term module lattice identity key whose public part is its peer identity. The peers exchange ML KEM encapsulations to establish a shared secret, and each signs the transcript with its identity key so the other knows who it is talking to. There is no elliptic curve key exchange anywhere. A peer identity is rendered in the identifier format, never in hex.
 
 ## Encryption
 
@@ -38,4 +38,4 @@ A peer that is behind catches up by asking neighbors for headers from its last k
 
 ## No inherited stack
 
-There is no external peer library, no inherited networking, and no classical transport security. The protocol is built from QUIC, ML KEM, the module lattice signature, and SHA3, and nothing else.
+There is no external peer library, no inherited networking, and no classical transport security. The protocol is built from a reliable byte stream, ML KEM, the module lattice signature, and SHA3, and nothing else.

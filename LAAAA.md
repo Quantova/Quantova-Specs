@@ -91,7 +91,9 @@ graduated), 90-day lock then 21-day slashable unbonding · validator resource
 budget is a consensus parameter, bandwidth floor 1 Gbps ·
 150 ms slots · provers have zero votes · Quanta linear Q_Asset + unforgeable
 Q_Sig<T>, no ecrecover expressible · CID with SHA3 selectors embedded in
-every .qbc · QUIC ML-KEM+ML-DSA transport, no X25519 even on devnets ·
+every .qbc · ML-KEM+ML-DSA secure channel over a reliable byte stream (TCP
+today), no X25519 even on devnets, QUIC revisited only if a measured run demands
+it, per OPTIONS-quic-vs-tcp.md ·
 qAssets origin-tagged and INVALID as stake · Airlock = ingress grammar:
 foreign artifacts are exactly {attestation, stark_proof}.
 
