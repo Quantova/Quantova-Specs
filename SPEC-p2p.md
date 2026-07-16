@@ -26,6 +26,12 @@ What it does not do. It does not reduce what a node that must reconstruct the bl
 
 Why it is here anyway. Erasure coding is the prerequisite for data availability sampling, which is the only safe way to let a node stop downloading data it does not itself execute. A node can verify that a coded block is available by sampling a few shards against the committed root, and if the samples are present the whole is reconstructable with high probability, so availability becomes a property a node checks rather than a thing it must download in full to know. Without the coding there is no way to prove availability short of downloading, and a chain where nobody can prove the data is held is not safe to lighten. So this lays the foundation for the availability architecture, and the analysis of that architecture is in SCOPE-transaction-availability.md.
 
+## What is coded and what is not yet, open
+
+The proposal path is coded. A block wider than the transport record is dispersed as erasure coded shards and reconstructed against the header, so proposal width is no longer capped by the record size. Two other paths are not coded and are open, recorded here so they are not lost in a report. Catch up sync still serves a whole finalised block in one record, so a node fetching a block wider than the record cannot get it that way. And a view change record carries the locked block whole, so an oversize locked block does not fit a view change. Both were pre existing to the proposal path and are outside it, and until they are coded the record size still caps block width on the sync and the view change, not on the proposal.
+
+Neither blocks a run that stays in lockstep or below the record size. They would bite a genuinely distributed run only at a block width above the record under lag or a view change, so a distributed run at sub record widths is unaffected, and a wide width distributed run needs the same erasure mechanism applied to these two records first. Coding them is that mechanism on those two records, and it is not done.
+
 ## Sync
 
 A peer that is behind catches up by asking neighbors for headers from its last known height, verifying each header and its certificate, and then fetching the bodies. A light client syncs headers alone. Sync never trusts a peer. It verifies every header and every proof.
