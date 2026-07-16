@@ -59,6 +59,11 @@ STOP AND REPORT. Do not proceed, do not work around.
   of tiny commits reads as machine made.
 - Spec gaps are FILED in Quantova-Specs, never improvised around.
 - Cross-repo deps pin git TAGS (e.g. Q-Crypto v0.1.0), never branches.
+- The four binaries, the chain, the node, the devnet, and the harness, commit
+  their Cargo.lock, and libraries do not. Each binary carries a declared pins file,
+  and the Quantova-Ci agreement gate asserts the declared pin, the committed
+  lockfile commit, and the remote peeled tag all agree, so a moved tag or a
+  regenerated lock fails CI. The declaration changes only in a reviewable commit.
 - Write each commit as a human would, a short plain sentence, no tag-style
   prefixes (no feat: test: docs:). Write it as if public tomorrow.
 - Rust 2021 everywhere. Crates: qtv- prefix, kebab-case. Dual Apache-2.0/MIT.
@@ -99,6 +104,19 @@ promise, and this is not one). The three internal throughput numbers workers
 build against (measured, architecture ceiling at the floor, design target) live
 in HANDOFF, kept separate, none published.
 NEVER: "millisecond global finality", "fully trustless bridge", "quantum-proof".
+
+## Measurements are committed or provisional
+A performance figure is a measurement only when it is committed as a results file
+beside the code that produced it. A figure that lives only in a report is not a
+number. It is not relayed, not reasoned about, and not written into a document.
+The results file is data, not narrative. It states the reference host, the release
+profile, the node count, the committee size, the block width, the transaction mix,
+the duration, and the method, then the figures, and it does not editorialise. The
+template is q-prover v0.8.0, the bench code and a results file side by side,
+nothing tuned, the composition stated plainly, and it is the right length. In a
+report a figure carries its committed measurement or it wears an explicit
+provisional label. Labelled is permitted, citable is not, until committed. A
+number in prose with no committed measurement behind it is retired.
 
 ## Proven is not deployed
 Every security property has two states and both are named, never one taken for
