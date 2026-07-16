@@ -1,6 +1,8 @@
 # Costing A7, the twenty percent threshold, against the trust it shares with byzantine trusted validity
 
-Status. This is decision input security analysis for the founder, not normative, and there is no measurement, it is a reasoning about assumptions. A7 is costed here not on its own but against the byzantine trusted validity of the availability path, because the founder asked for the combined assumption rather than two separate ones, and because both are security reductions that concentrate trust in the same sampled committee. A7 is escalated and not taken, and this paper recommends against taking it together with byzantine trusted validity.
+Status. This is the security analysis behind a decision, not normative, and there is no measurement, it is a reasoning about assumptions. A7 is costed here not on its own but against the byzantine trusted validity of the availability path, because the founder asked for the combined assumption rather than two separate ones, and because both are security reductions that concentrate trust in the same sampled committee.
+
+Decision. A7 is not taken, decided by the founder on this costing. It is recorded as a decision with its reasoning in SPEC-consensus-qorus.md so it is not reopened the next time a faster number is wanted. If it is ever revisited, the formal model is re checked at the one fifth threshold before any protocol code changes.
 
 ## The two reductions, named plainly
 
