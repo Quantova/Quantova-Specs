@@ -38,6 +38,16 @@ The validator bandwidth floor is one gigabit a second, decided, and it is not to
 
 The protocol is safe as long as fewer than one third of the committee is byzantine, meaning it never finalizes two conflicting blocks at one height. It is live as long as a supermajority is online, meaning it keeps finalizing. A deterministic simulator models these properties under fault injection before the protocol is built, and a formal model in a specification language checks safety and liveness before stage one activates.
 
+## The fault threshold and validity, decided
+
+Two safety questions raised by the latency and throughput programme are decided, both against trading safety for speed, and they are recorded here as decisions with their reasoning so they are not reopened the next time a faster number is wanted.
+
+The fault threshold stays at below one third. A7, which would lower it to below one fifth so a smaller quorum finalises faster, is not taken. It is a security reduction, and because the committee is sampled from the active set the tolerable global adversary sits somewhat under one fifth, so it is not a fifth, it is less than a fifth and less forgiving than the same fraction under one third. If A7 is ever approved, the formal model is re checked at the one fifth threshold before any protocol code changes. The costing is in COST-a7-threshold.md.
+
+Universal re execution is kept, and byzantine trusted validity is not taken. Every validator re executes every block, so the validity of a block is verified independently of the committee that finalised it. A validator does not stop executing and accept the committee's certificate as proof of validity. The property this preserves is stated plainly, because it is worth more than the latency it costs and most chains do not have it. Today one honest re executor protects validity absolutely, so a fully corrupt committee can halt the chain but it cannot lie to it. That property is kept.
+
+The conditional is recorded too. If throughput ever becomes the goal, the availability path uses proven validity, which keeps validity off the committee, and never byzantine trusted validity, and A7 is never stacked on a validity reduction. Proven validity is not affordable today, so the honest state is that the trustless throughput path is a multi year trajectory and the chain is not on it. Until it is, the design keeps universal re execution and the one third threshold, so the architecture ceiling at the one gigabit floor stays about 11,800 transactions a second, the three separated throughput numbers in the handoff stand, and the design target is further away than the availability scoping made it look. The costing is in COST-availability-sampling.md.
+
 ## Consensus uses one signature scheme
 
 Validator attestations and the aggregated finality certificate use ML DSA only. A user account may sign with any registered scheme, but that choice never reaches consensus. SLH DSA and FN DSA are never wired into a consensus attestation or the certificate. Mixing schemes in the hot path would complicate the prover and the certificate for no benefit and would put finality and throughput at risk. This law is fixed and is written in both this specification and the accounts specification.
