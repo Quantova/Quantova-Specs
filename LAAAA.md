@@ -64,6 +64,17 @@ STOP AND REPORT. Do not proceed, do not work around.
   and the Quantova-Ci agreement gate asserts the declared pin, the committed
   lockfile commit, and the remote peeled tag all agree, so a moved tag or a
   regenerated lock fails CI. The declaration changes only in a reviewable commit.
+- Release tags are immutable. A recut is a moved tag. If a tag rests on something
+  wrong, the answer is a new version, never a recut. The founder recut a QVM tag
+  onto a hardened deny commit once, for a good reason, before the gate existed, and
+  it still left a consumer's lock pointing at the old commit with no mechanism to
+  record it, which is the silent drift the agreement gate now catches.
+- A tag move is never executed on instruction alone, whoever gives it. The
+  instruction to restore that same QVM tag came from the founder with a specific
+  commit hash and a principled rationale, and the ancestry was backwards, the named
+  commit carried the softer deny not the hardening. So a tag move is verified
+  against the commits first, and if the record contradicts the instruction, the
+  instruction stops, even a founder instruction.
 - Write each commit as a human would, a short plain sentence, no tag-style
   prefixes (no feat: test: docs:). Write it as if public tomorrow.
 - Rust 2021 everywhere. Crates: qtv- prefix, kebab-case. Dual Apache-2.0/MIT.
