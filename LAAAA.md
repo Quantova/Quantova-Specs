@@ -103,14 +103,29 @@ NEVER: "millisecond global finality", "fully trustless bridge", "quantum-proof".
 ## Proven is not deployed
 Every security property has two states and both are named, never one taken for
 the other. Proven and tested, the property holds in a component with a test.
-Released and running, that component is in the tagged release the executing path
-pins, so the property holds in the code that actually runs. A property proven in
-a component and absent from the tagged release is an OPEN hole, reported as open,
-not closed. A gate met in a crate is not met in the chain until the crate is
-released and pinned. When a security property is reported, state both states, and
-if the running state is not yet true the property is open regardless of the proof.
-This is a standing rule because a proof was once read as closure while the running
-chain still used the mechanism the proof replaced.
+Released and running, the thing that executes or measures resolves to a build
+that contains it. A property proven in a component and not resolved to by what
+runs is an OPEN hole, reported as open, not closed. When a security property is
+reported, state both states, and if the running state is not yet true the property
+is open regardless of the proof.
+
+The running state is not a single check. It is the whole chain of custody, and a
+property is closed only when the tagged release of EVERY consumer on the path
+resolves, in its lockfile, to a build containing it. The chain runs component,
+then the component's tag, then each consumer's pin, then the consumer's own tag,
+then the thing that executes or measures. Any break in that chain and the property
+is open. It is not enough that the component is tagged with the property, or that
+one consumer's pin moved, if a consumer's own release tag still points at a build
+without it. Verify the running state from the tags, the pins, and the lockfile of
+every consumer, not from intent and not from your own report.
+
+This is a standing rule and it was tightened twice by being broken twice. First a
+proof was read as closure while the running chain used the mechanism it replaced.
+Then the component was tagged and the chain's pins bumped, but the chain's own
+release tag still pinned the old component, so a consumer building from that
+release still ran the old mechanism. The check that catches this is done by
+someone who did not build the thing, because an agent auditing its own work has a
+blind spot about its own work.
 
 ## Escalate to founder (stop work first)
 Conflict with POLICY-crypto.md · a task seems to need a banned dependency ·
