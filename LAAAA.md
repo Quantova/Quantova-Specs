@@ -100,6 +100,18 @@ build against (measured, architecture ceiling at the floor, design target) live
 in HANDOFF, kept separate, none published.
 NEVER: "millisecond global finality", "fully trustless bridge", "quantum-proof".
 
+## Proven is not deployed
+Every security property has two states and both are named, never one taken for
+the other. Proven and tested, the property holds in a component with a test.
+Released and running, that component is in the tagged release the executing path
+pins, so the property holds in the code that actually runs. A property proven in
+a component and absent from the tagged release is an OPEN hole, reported as open,
+not closed. A gate met in a crate is not met in the chain until the crate is
+released and pinned. When a security property is reported, state both states, and
+if the running state is not yet true the property is open regardless of the proof.
+This is a standing rule because a proof was once read as closure while the running
+chain still used the mechanism the proof replaced.
+
 ## Escalate to founder (stop work first)
 Conflict with POLICY-crypto.md · a task seems to need a banned dependency ·
 work belongs to another repo · anything touching Q-Oracle before Wave F ·
