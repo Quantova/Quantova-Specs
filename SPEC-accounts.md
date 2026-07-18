@@ -18,6 +18,8 @@ There are two sanctioned tiers. The canonical tier uses a 32 byte payload and is
 
 A private key export uses the human readable part q2 and encodes the 32 byte master or account seed as Bech32m. The same secret is also expressible as a 24 word mnemonic that uses Quantova derivation based on SHAKE256. It is not BIP39 and not BIP32, and there is no secp256k1 derivation path anywhere.
 
+The q2 part is the secret namespace and is never shared with a public identifier. A block hash, a transaction hash, and a state root read qbk1, qtx1, and qst1, never q2, so a string that reads q2 is always a secret and never anything safe to publish. This keeps a key from being mistaken for a hash and a hash from being mistaken for a key, and it is why a hash is never rendered q2 even though other tools have done so.
+
 ## The key generation pipeline
 
 The pipeline is frozen, fully post quantum, and lives entirely in the qtv crypto crate. It runs as follows. The operating system random source produces a 32 byte master seed. The account seed is SHAKE256 over the master seed followed by the scheme identifier followed by the index. The lattice key is produced by ML DSA key generation from the account seed as defined in FIPS 204. The address is the q1 encoding of the SHA3 256 hash of the scheme identifier followed by the public key.
