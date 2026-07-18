@@ -80,13 +80,15 @@ The fee schedule is stated in dollar micro units, not in the native asset. A sim
 
 The rate of the native asset in dollars is a protocol parameter updated through governance on the monetary track, on a controlled cadence and within a bounded step size per update. It is never read from a live external price feed in the transaction hot path, because a live feed in consensus is a manipulation risk and a liveness risk, and it is prohibited.
 
-## The ceiling is a runtime invariant
+## The ceiling is a native invariant, not a dollar one
 
-The one tenth of a cent ceiling is a hard runtime invariant. Any schedule or any rate that would produce a fee above USD 0.0010 is unenactable, refused the way an over ceiling mint is refused. The fee can never exceed the disclosed maximum even when the rate is stale or the price of the native asset moves sharply.
+The fee is capped in QTOV and targeted in USD. The hard runtime invariant is a native ceiling, a maximum number of base units a fee can ever be, set in genesis and independent of the rate, refused above the way an over ceiling mint is refused, so no rate however stale drives a fee past it. The one tenth of a cent is the dollar target the governance rate is held to, not a runtime dollar cap, because a runtime dollar cap would require reading the true price of the native asset in the hot path, which the rate parameter section prohibits as a manipulation and a liveness risk.
+
+So the honest claim is that a fee is capped in QTOV, targeted in USD, and the peg is maintained by governance keeping the rate current. If the native asset rises faster than governance re-pegs, the realized dollar cost drifts above the target, because a fixed native ceiling is worth more in dollars at a price the chain does not observe. That residual is inherent to a chain with no price feed and is accepted deliberately. The chain does not claim that a fee can never exceed a tenth of a cent, because that sentence requires the feed the chain refuses.
 
 ## Fee edge cases
 
-When the rate is older than a defined freshness window, the fee is clamped to the band using the last known rate. Drift toward a cheaper fee is allowed, and a fee above the band is impossible. When the native asset rises sharply, the fee becomes a smaller amount of the native asset while the dollar ceiling still binds, so a user pays less and never more. When the native asset falls sharply, the base fee stays in the band, and the congestion component below handles spam separately and never pushes a normal user over the band. A fee never rounds to zero, since the five hundredths of a cent floor keeps spam paying something.
+When the rate is stale the fee is computed from the last known rate and bounded by the native ceiling, so it can drift cheaper than the target and it can drift dearer than the target, and it can never exceed the native ceiling in base units. When the native asset rises and governance keeps the rate current, the fee becomes a smaller amount of the native asset while the target still holds, so a user pays less. When the native asset rises faster than governance re-pegs, the native ceiling holds the base units while the dollar value drifts up, the residual named above. When the native asset falls sharply, the fee stays in the band and the congestion component handles spam separately. A fee never rounds to zero, since the five hundredths of a cent floor keeps spam paying something.
 
 ## The congestion component
 
