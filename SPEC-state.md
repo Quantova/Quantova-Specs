@@ -19,3 +19,7 @@ The mapping from a set of key and value pairs to a root is fixed by this specifi
 ## State access
 
 An entry declares the keys it reads and the keys it writes. The machine enforces that an entry touches only its declared keys, which is what lets the scheduler run entries that do not overlap at the same time.
+
+## Storage growth is bounded, not only priced
+
+Storage growth is priced by the meter today and has no size ceiling, so a large meter budget can insert unboundedly many slots. That is closed before contracts land, and the instrument is a refundable storage deposit with a per transaction slot cap. To create a slot a contract locks a deposit in the native asset, refunded when the slot is freed, so unbounded growth requires unbounded locked native and there is no rent accounting and no eviction where state silently disappears. The per transaction slot cap is a cheap belt that stops a single transaction ballooning state in one step. The cost to a legitimate contract is proportional locked capital it recovers when it releases state, negligible for modest state and recoverable for a large registry, and the deposit rate is a genesis parameter. This is the chosen design and it is not built, since no contracts deploy yet.
