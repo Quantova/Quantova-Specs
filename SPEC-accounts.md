@@ -43,3 +43,9 @@ A user chooses a signature scheme per account at signup, and a user account and 
 ## Wallet framing
 
 The wallet presents the scheme choice by property, not by raw name, with a default. ML DSA is the recommended balanced default. SLH DSA is the most conservative choice and has larger signatures. FN DSA has the smallest signatures but uses a standard that is still being finalized, and that is disclosed at the point of choice. The competition names belong to the wallet display only, and the FIPS names are used everywhere in the code, the specifications, and the identifiers.
+
+## Wallet address safety
+
+A look alike address is the attack this format must survive. An attacker grinds a key whose address shares the first and last characters a wallet shows, sends dust so it lands in the victim's history, and waits for the victim to copy it from there. The address is cryptographically valid and the attacker holds its key, so nothing at the mempool refuses it. The defence is the wallet, and it is a rule the wallet inherits here rather than discovers later.
+
+A wallet renders the full q1 string and never a middle truncation an attacker can match at both ends. It verifies the Bech32m checksum before it treats a string as an address, which catches a typo but not a ground look alike, so the checksum is necessary and not sufficient. It never lets a user copy a recipient out of transaction history without a warning, because history is exactly where a planted address waits. It flags a first time recipient, an address this account has not paid before, since a swapped address is most often a new one. And where a name in the name service exists it is the recipient the user reads and confirms, because leo.q cannot be confused the way a hash can, which is why the name service is the strongest answer to this attack and the address rules above are the floor beneath it.
