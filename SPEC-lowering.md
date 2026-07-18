@@ -22,7 +22,7 @@ Hashing is the SHA3 256 opcode only. No classical cryptographic operation is rep
 
 ## Multi scheme signatures
 
-Q_Sig of T stays scheme agnostic in the language, and the code generator dispatches on the one byte scheme identifier to the matching verify opcode. The value 0x01 is ML DSA and lowers to the module lattice verify MLDSA_VERIFY, and it is the default. The value 0x02 is SLH DSA and lowers to the hash based verify SLH_VERIFY. The value 0x03 is FN DSA and lowers to FNDSA_VERIFY, which stays behind the fn dsa feature flag and is off in every default build until the standard is final and audited. A contract never branches on the scheme.
+Q_Sig of T stays scheme agnostic in the language, and the code generator dispatches on the one byte scheme identifier to the matching verify opcode. The value 1 is ML DSA and lowers to the module lattice verify MLDSA_VERIFY, and it is the default. The value 2 is SLH DSA and lowers to the hash based verify SLH_VERIFY. The value 3 is FN DSA and lowers to FNDSA_VERIFY, which stays behind the fn dsa feature flag and is off in every default build until the standard is final and audited. A contract never branches on the scheme.
 
 The hard law is preserved through lowering. A user account may use any registered scheme, but validator attestations and the QORUS certificate use ML DSA only. The code generator must never emit a path that puts a non ML DSA verify into a consensus artifact. The term for ML DSA is module lattice.
 

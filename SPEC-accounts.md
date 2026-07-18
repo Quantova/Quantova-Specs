@@ -4,7 +4,7 @@ Status. This document is normative. It sits under the crypto policy. If anything
 
 ## Security floor
 
-Address and key payloads are sized by security, not by style. The minimum payload is 192 bits, which gives a 96 bit quantum preimage margin. The canonical payload is 256 bits, which gives a 128 bit margin. There is no six character key and no six character address. A short key is a broken key. This constraint is permanent, and no future pressure shortens it.
+Address and key payloads are sized by security, not by style. Every payload is 256 bits, which gives a 128 bit quantum preimage margin, and there is no shorter width. There is no six character key and no six character address. A short key is a broken key. This constraint is permanent, and no future pressure shortens it.
 
 Identity has three layers. The human layer is a name in the Quantova Name Service, which is short and readable. The name resolves to a Q1 address, which is a hash and the on chain identifier. The address is derived from a quantum keypair, which stays hidden and is derived from a 32 byte seed.
 
@@ -12,7 +12,7 @@ Identity has three layers. The human layer is a name in the Quantova Name Servic
 
 An address is the Bech32m encoding of a payload, using the human readable part q, where the payload is the SHA3 256 hash of the scheme identifier followed by the public key. Because the character after the human readable part is the natural Bech32 separator, every address reads as q1 by construction.
 
-There are two sanctioned tiers. The canonical tier uses a 32 byte payload and is about 60 characters. It is the default. The compact tier uses a 24 byte payload and is about 47 characters, with a 96 bit quantum margin, and is optional. Both tiers are Bech32m, checksummed, and error detecting.
+An address uses a 32 byte payload and is about 60 characters. There is one width and no shorter tier. It is Bech32m, checksummed, and error detecting.
 
 ## The Q2 secret
 
@@ -36,7 +36,7 @@ A scheme identifier byte precedes every key. The Q format is stable across futur
 
 ## The scheme identifier registry
 
-A one byte scheme identifier prefixes every key and every signature, and verification dispatches on it. The registry is fixed. The value 0x01 is ML DSA 65 and is the default. The value 0x02 is SLH DSA. The value 0x03 is FN DSA, which is pre final and stays behind the fn dsa feature flag, off in every default build until the standard is final and audited. A contiguous range of values above these is reserved for other parameter sets of the same schemes, for example ML DSA 44 and ML DSA 87, so a future set never renumbers an existing one. The address is the SHA3 256 hash of the scheme identifier followed by the public key, so the address does not reveal the scheme. The signature envelope carries the scheme identifier, and a verifier reads it and runs the matching verification.
+A one byte scheme identifier prefixes every key and every signature, and verification dispatches on it. The registry is fixed. The value 1 is ML DSA 65 and is the default. The value 2 is SLH DSA. The value 3 is FN DSA, which is pre final and stays behind the fn dsa feature flag, off in every default build until the standard is final and audited. A contiguous range of values above these is reserved for other parameter sets of the same schemes, for example ML DSA 44 and ML DSA 87, so a future set never renumbers an existing one. The address is the SHA3 256 hash of the scheme identifier followed by the public key, so the address does not reveal the scheme. The signature envelope carries the scheme identifier, and a verifier reads it and runs the matching verification.
 
 ## Scheme choice is per account and never per consensus
 

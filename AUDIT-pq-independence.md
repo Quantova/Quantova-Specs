@@ -20,4 +20,4 @@ The symmetric authenticated encryption lives in the crypto crate chacha20poly130
 
 ## The account signature schemes
 
-Three signature schemes are registered for user accounts, each mapped to its standard. ML DSA reduces to FIPS 204 and is the default at scheme identifier 0x01. SLH DSA reduces to FIPS 205 at scheme identifier 0x02. FN DSA reduces to FIPS 206 at scheme identifier 0x03, and its row is flagged, since FIPS 206 is a pre final standard, so FN DSA stays off in every default build until the standard is final and the implementation is audited for constant time behavior. Validator attestations and the finality certificate use ML DSA only.
+Three signature schemes are registered for user accounts, each mapped to its standard. ML DSA reduces to FIPS 204 and is the default at scheme identifier 1. SLH DSA reduces to FIPS 205 at scheme identifier 2. FN DSA reduces to FIPS 206 at scheme identifier 3, and its row is flagged, since FIPS 206 is a pre final standard, so FN DSA stays off in every default build until the standard is final and the implementation is audited for constant time behavior. Validator attestations and the finality certificate use ML DSA only.
