@@ -70,7 +70,7 @@ A holder who does not run a validator may delegate stake to one and share in its
 
 ## The fee model
 
-The fee is defined in United States dollars and charged in the native asset. Every fee, measured in dollar value, falls within a band from one hundredth of a cent to one tenth of a cent, which is USD 0.0001 to USD 0.0010, and it never exceeds one tenth of a cent whatever the price of the native asset. This band is set to undercut the incumbent low fee chains so the chain is attractive for stablecoin settlement.
+The fee is defined in United States dollars and charged in the native asset. Every fee, measured in dollar value, falls within a band from five hundredths of a cent to one tenth of a cent, which is USD 0.0005 to USD 0.0010, and it never exceeds one tenth of a cent whatever the price of the native asset. This band is set to undercut the incumbent low fee chains so the chain is attractive for stablecoin settlement.
 
 ## How a fee is computed
 
@@ -86,7 +86,7 @@ The one tenth of a cent ceiling is a hard runtime invariant. Any schedule or any
 
 ## Fee edge cases
 
-When the rate is older than a defined freshness window, the fee is clamped to the band using the last known rate. Drift toward a cheaper fee is allowed, and a fee above the band is impossible. When the native asset rises sharply, the fee becomes a smaller amount of the native asset while the dollar ceiling still binds, so a user pays less and never more. When the native asset falls sharply, the base fee stays in the band, and the congestion component below handles spam separately and never pushes a normal user over the band. A fee never rounds to zero, since the one hundredth of a cent floor keeps spam paying something.
+When the rate is older than a defined freshness window, the fee is clamped to the band using the last known rate. Drift toward a cheaper fee is allowed, and a fee above the band is impossible. When the native asset rises sharply, the fee becomes a smaller amount of the native asset while the dollar ceiling still binds, so a user pays less and never more. When the native asset falls sharply, the base fee stays in the band, and the congestion component below handles spam separately and never pushes a normal user over the band. A fee never rounds to zero, since the five hundredths of a cent floor keeps spam paying something.
 
 ## The congestion component
 
