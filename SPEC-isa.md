@@ -10,7 +10,11 @@ The machine has a fixed set of general registers, each holding a 64 bit word. It
 
 ## Instruction groups
 
-Instructions fall into groups. There are arithmetic and logic instructions over 64 bit words. There are control instructions for branches, calls, and returns within a contract. There are storage instructions that read and write the declared state. There are message instructions that enqueue an asynchronous message to another contract, since there is no synchronous call that returns control in the middle of execution. And there are the native post quantum cryptographic instructions described below.
+Instructions fall into groups. There are arithmetic and logic instructions over 64 bit words. The arithmetic includes checked forms that fault on overflow, wrapping forms that take the modular result, and a widening high word multiply that returns the high 64 bits of a 64 by 64 product, so a 128 bit product is formed from two 64 bit words without any wider machine word. There are control instructions for branches, calls, and returns within a contract. There are storage instructions that read and write the declared state. There are message instructions that enqueue an asynchronous message to another contract, since there is no synchronous call that returns control in the middle of execution. There is an event instruction that records a typed event. And there are the native post quantum cryptographic instructions described below.
+
+## Events
+
+A contract records a typed event with the event instruction. The instruction names a payload region in scratch memory by its offset and byte length and carries the event's interface selector, and the machine records the event as an effect the host appends to the block event trie after a clean halt. Like a native transfer the event is a recorded effect and never a direct state change, so a fault records nothing and only a clean halt surfaces the events, in emission order. The event root over the recorded events is committed in the block header, so a light client verifies an event against the header without holding the full state, as the block specification describes.
 
 ## The cryptographic instructions
 

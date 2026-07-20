@@ -32,11 +32,19 @@ The type checker makes all six classic exploit classes true compile errors. The 
 
 No synchronous external callback is expressible, so reentrancy fails at name resolution, and the code generator emits no opcode sequence that reconstructs a synchronous call which returns control.
 
-An unbounded addition of external input into a stored integer has no lowering. The explicit checked form lowers to the checked arithmetic opcode that reverts on overflow, and the explicit wrapping form lowers to the modular add. A bare unbounded addition has no lowering at all.
+An unbounded addition or multiplication of external input into a stored integer has no lowering. The explicit checked form lowers to the checked arithmetic opcode that reverts on overflow, and the explicit wrapping form lowers to the modular operation. A bare unbounded additive or multiplicative operation has no lowering at all.
 
 A competitive or pooled order that is not sealed does not compile, so the code generator relies on the sealed type being present and never stands a runtime guard in for it.
 
 The remaining classes lower with no runtime check substituting for the compile time guarantee. If lowering a construct ever seems to need a runtime revert to enforce one of these guarantees, that is a signal the guarantee has regressed, so stop and flag it.
+
+## Wide integer lowering
+
+The surface type u128 is two 64 bit machine words, a low word and a high word, and the code generator lowers its arithmetic to two word sequences. An add carries the low word overflow into the high word, a subtract borrows across, and a multiply forms the low word product and the high word of that product with the widening high word multiply, then adds the two low cross terms into the high word. The checked form reverts to the shared trap when any bit of the full product lands above the wide range, which is a carry out of the high word, a high half of either cross term, or a nonzero high by high product, and the wrapping form takes the modular result, the same distinction as the one word arithmetic. Asset amounts are u128, so this lowering underlies every amount the machine moves. A wide value stores its low word in its slot and its high word in that slot lifted by the high offset.
+
+## Event lowering
+
+An emit lowers to the event instruction. The code generator marshals the operand values into the event payload region of scratch memory, a wide value as its low then high word and any other value as a single word, laid out in emission order, then records the event with its interface selector and the payload region. The selector is the SHA3 hash of the event's canonical signature string truncated to the selector width, the same rule as an entry selector. The machine records the event as an effect the host appends to the block event trie, so a fault records nothing and only a clean halt surfaces the events. The container format and the event payload are specified in the container specification.
 
 ## Origin tagged bridged assets
 
