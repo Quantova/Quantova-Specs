@@ -62,7 +62,7 @@ Provers do the heavy work of execution, signature verification, and proving, and
 
 ## Fees, burn, and split
 
-A transaction pays a fee in the native asset. Part of the fee is burned, which ties the asset to real use, and the rest is split between the validators of the round and the treasury. The exact shares are genesis parameters.
+A transaction pays a fee in the native asset. Part of the fee is burned, credited to no one so the total supply falls with real use, and the rest funds the validators reward pool and the grants pool. The genesis shares are twenty percent burned, sixty percent to the validators reward pool, and twenty percent to the grants pool, and they are changed only through governance. The burned portion is the remainder after the two credited shares, so any rounding dust is burned rather than misallocated and no unit is ever created.
 
 ## Delegation
 
@@ -96,4 +96,4 @@ There is a congestion component that is zero under normal load and rises only wh
 
 ## Fee reconciliation
 
-The fee is split with a part burned and the rest shared between the validators of the round and the treasury, and the congestion component follows the same split. None of this changes the single mint path or the mint ceiling of the native asset, since the fee is a charge in the native asset and not an issuance of it.
+The fee is split with a part burned and the rest funding the validators reward pool and the grants pool, and the congestion component follows the same split. None of this changes the single mint path or the mint ceiling of the native asset, since the fee is a charge in the native asset and not an issuance of it. The burn is the one place supply falls, and it falls only with real use.
