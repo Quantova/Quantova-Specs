@@ -10,19 +10,19 @@ Identity has three layers. The human layer is a name in the Quantova Name Servic
 
 ## The Q1 address
 
-An address is the Bech32m encoding of a payload, using the human readable part q, where the payload is the SHA3 256 hash of the scheme identifier followed by the public key. Because the character after the human readable part is the natural Bech32 separator, every address reads as q1 by construction.
+An address is the Bech32m encoding of a payload, using the human readable part q, where the payload is the SHA3 256 hash of the scheme identifier followed by the public key. Because the character after the human readable part is the natural Bech32 separator, every address reads as Q1 by construction.
 
 An address uses a 32 byte payload and is about 60 characters. There is one width and no shorter tier. It is Bech32m, checksummed, and error detecting.
 
 ## The Q2 secret
 
-A private key export uses the human readable part q2 and encodes the 32 byte master or account seed as Bech32m. The same secret is also expressible as a 24 word mnemonic that uses Quantova derivation based on SHAKE256. It is not BIP39 and not BIP32, and there is no secp256k1 derivation path anywhere.
+A private key export uses the human readable part Q2 and encodes the 32 byte master or account seed as Bech32m. The same secret is also expressible as a 24 word mnemonic that uses Quantova derivation based on SHAKE256. It is not BIP39 and not BIP32, and there is no secp256k1 derivation path anywhere.
 
-The q2 part is the secret namespace and is never shared with a public identifier. A block hash, a transaction hash, and a state root read qbk1, qtx1, and qst1, never q2, so a string that reads q2 is always a secret and never anything safe to publish. This keeps a key from being mistaken for a hash and a hash from being mistaken for a key, and it is why a hash is never rendered q2 even though other tools have done so.
+The Q2 part is the secret namespace and is never shared with a public identifier. A block hash, a transaction hash, and a state root read qbk1, qtx1, and qst1, never Q2, so a string that reads Q2 is always a secret and never anything safe to publish. This keeps a key from being mistaken for a hash and a hash from being mistaken for a key, and it is why a hash is never rendered Q2 even though other tools have done so.
 
 ## The key generation pipeline
 
-The pipeline is frozen, fully post quantum, and lives entirely in the qtv crypto crate. It runs as follows. The operating system random source produces a 32 byte master seed. The account seed is SHAKE256 over the master seed followed by the scheme identifier followed by the index. The lattice key is produced by ML DSA key generation from the account seed as defined in FIPS 204. The address is the q1 encoding of the SHA3 256 hash of the scheme identifier followed by the public key.
+The pipeline is frozen, fully post quantum, and lives entirely in the qtv crypto crate. It runs as follows. The operating system random source produces a 32 byte master seed. The account seed is SHAKE256 over the master seed followed by the scheme identifier followed by the index. The lattice key is produced by ML DSA key generation from the account seed as defined in FIPS 204. The address is the Q1 encoding of the SHA3 256 hash of the scheme identifier followed by the public key.
 
 The stored secret is the 32 byte seed. The full lattice key is expanded at signing time and is never stored, displayed, or exported as the user key. This is the layered structure. A short seed and a short address sit on top, and the large quantum key sits beneath, never seen.
 
@@ -50,4 +50,4 @@ The wallet presents the scheme choice by property, not by raw name, with a defau
 
 A look alike address is the attack this format must survive. An attacker grinds a key whose address shares the first and last characters a wallet shows, sends dust so it lands in the victim's history, and waits for the victim to copy it from there. The address is cryptographically valid and the attacker holds its key, so nothing at the mempool refuses it. The defence is the wallet, and it is a rule the wallet inherits here rather than discovers later.
 
-A wallet renders the full q1 string and never a middle truncation an attacker can match at both ends. It verifies the Bech32m checksum before it treats a string as an address, which catches a typo but not a ground look alike, so the checksum is necessary and not sufficient. It never lets a user copy a recipient out of transaction history without a warning, because history is exactly where a planted address waits. It flags a first time recipient, an address this account has not paid before, since a swapped address is most often a new one. And where a name in the name service exists it is the recipient the user reads and confirms, because leo.q cannot be confused the way a hash can, which is why the name service is the strongest answer to this attack and the address rules above are the floor beneath it.
+A wallet renders the full Q1 string and never a middle truncation an attacker can match at both ends. It verifies the Bech32m checksum before it treats a string as an address, which catches a typo but not a ground look alike, so the checksum is necessary and not sufficient. It never lets a user copy a recipient out of transaction history without a warning, because history is exactly where a planted address waits. It flags a first time recipient, an address this account has not paid before, since a swapped address is most often a new one. And where a name in the name service exists it is the recipient the user reads and confirms, because leo.q cannot be confused the way a hash can, which is why the name service is the strongest answer to this attack and the address rules above are the floor beneath it.

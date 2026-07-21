@@ -6,7 +6,7 @@ Status. This document is normative. It sits under the crypto policy and the lang
 
 The typed primitives are the language surface over the machine opcodes. The code generator lowers each primitive to its opcode and never re implements a cryptographic operation in the language.
 
-Q_Address is the SHA3 256 hash of the scheme identifier followed by the public key, rendered in Bech32m as a q1 string, never as hexadecimal.
+Q_Address is the SHA3 256 hash of the scheme identifier followed by the public key, rendered in Bech32m as a Q1 string, never as hexadecimal.
 
 Q_Sig of T is a scheme agnostic signature fact. It lowers to the verify opcode chosen by the scheme identifier, described in the next section. A contract never names a scheme.
 
