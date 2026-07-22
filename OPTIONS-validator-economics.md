@@ -1,0 +1,67 @@
+# Validator economics, the models and the open choices
+
+Status. This is a decision paper for the founder, not normative. Part 1 of the validator economics is frozen and recorded in SPEC-economics and SPEC-consensus-qorus. This paper carries the two things that remain the founder decision, the issuance source and the delegation model, and the terminal fee analysis that goes with them. It implements none of them. Nothing on performance is claimed until the sortition work lands.
+
+## The supply base, now fixed
+
+The total supply is 4,571,429 QTOV, confirmed. The fifteen percent staking and network reward allocation is 685,714 QTOV. Every yield below is a ratio, the annual reward pot over the staked amount, so the supply cancels and the percentages hold at any supply, but the annual cost in QTOV and the duration below are computed against this fixed base.
+
+## The contradiction being reconciled
+
+The specifications imply two incompatible issuance mechanisms. The tokenomics allocates the fifteen percent pool, 685,714 QTOV, over forty eight months, which is 3.75 percent of supply a year and pays about 7.5 percent at half staked, well above the band, with the pool empty in four years. The emission schedule mints new supply at 3.00 percent a year falling to a 1.25 percent floor by year nine, which reaches the band only in year nine and inflates the supply forever. Neither hits the target band of 1.8 to 2.4 percent at launch. A third model reconciles them and is the founder's working preference, so all three are costed here.
+
+There is a hard constraint under all of this. The 2 percent per year mint ceiling is a protocol invariant, invariant four in the governance specification, enforced as unenactable and set at genesis. A model that only distributes a pre allocated pool mints nothing and never touches the ceiling. A model that mints new supply above 2 percent breaches it and can be adopted only by setting the genesis ceiling higher as a Constitution track act.
+
+## The three models, yields at every participation level
+
+The yield each model produces, at five, ten, twenty, thirty, fifty, and seventy percent of supply staked. Model 1 is the pool over forty eight months at 3.75 percent a year. Model 2 is the perpetual mint, shown at its 3.00 percent start and at its 1.25 percent floor. Model 3 is the stretched pool at 1.25 percent a year.
+
+| Staked | Model 1, 3.75 percent | Model 2 start, 3.00 percent | Model 2 floor, 1.25 percent | Model 3, 1.25 percent |
+| --- | --- | --- | --- | --- |
+| 5 percent | 75.00 percent | 60.00 percent | 25.00 percent | 25.00 percent |
+| 10 percent | 37.50 percent | 30.00 percent | 12.50 percent | 12.50 percent |
+| 20 percent | 18.75 percent | 15.00 percent | 6.25 percent | 6.25 percent |
+| 30 percent | 12.50 percent | 10.00 percent | 4.17 percent | 4.17 percent |
+| 50 percent | 7.50 percent | 6.00 percent | 2.50 percent | 2.50 percent |
+| 70 percent | 5.36 percent | 4.29 percent | 1.79 percent | 1.79 percent |
+
+The band is 1.8 to 2.4 percent. A rate of 1.25 percent of supply a year, which Model 2 reaches only at its floor and which Model 3 holds from day one, lands the yield in the band precisely when participation is between about 52 and 69 percent. Below that the yield sits above the band, above it the yield sits below. Model 1 at 3.75 percent is above the band at every plausible participation. Model 2 at its 3.00 percent start is above the band until it declines.
+
+## The three models, cost, duration, and what happens when it runs out
+
+Model 1, the pool over forty eight months. Annual cost about 171,429 QTOV a year for four years. It lasts four years and then the pool is empty and issuance stops, so the yield falls to whatever the fee flow provides, which is thin at launch. The failure mode is a cliff at month forty eight where a validator that bonded late faces a sudden drop, and the ninety day lock does not soften it for anyone who bonded more than three months before the cliff. It mints nothing, so it never touches the ceiling invariant, and the supply stays fixed.
+
+Model 2, the perpetual mint. Annual cost starts at about 137,143 QTOV in year one at 3.00 percent and declines toward the floor, but it mints new supply so the base grows and the cost compounds on a rising supply, and at the 1.25 percent floor it is about 57,000 QTOV a year of fresh issuance on the then larger supply, forever. It never runs out, which is its point, but it inflates the supply without end and it breaches the 2 percent mint ceiling invariant in its early years, so adopting it means setting the genesis ceiling at 3 percent as a Constitution track act. The failure mode is not exhaustion, it is permanent dilution and the loss of a fixed supply.
+
+Model 3, the stretched pool, the founder's working preference. Annual cost 57,143 QTOV a year, which is 1.25 percent of the fixed supply. It lasts about twelve years, 685,714 divided by 57,143. It mints nothing beyond the fifteen percent the tokenomics already promised, so the total supply stays fixed at 4,571,429 forever and the ceiling invariant is never touched. It gives a launch yield near twenty five percent when almost nothing is staked, which pulls validators in, and it settles at 2.5 percent at half staked and 1.79 percent at seventy percent, inside or at the edge of the band across plausible participation. Its failure mode is that after about twelve years the pool is empty and fees must carry the yield alone, which is the terminal question below and the reason this paper answers it now.
+
+The plain reading. Model 3 is the only one that lands in the band at plausible participation from day one, keeps the supply fixed, and never touches the ceiling invariant. Its single open risk is the year twelve handover to fees, which is analysed next. Model 1 overshoots then cliffs. Model 2 holds forever but only by inflating forever and by amending an invariant.
+
+## The terminal question, can fees hold the band when the pool is gone
+
+Under any model the pot eventually runs down and the fee flow must carry the yield alone. This is asked now rather than in year twelve. The question is the sustained transaction rate that produces enough fee revenue to hold the band on the staked capital.
+
+The fee band is fixed at one hundredth of a cent to one tenth of a cent a transaction, USD 0.0001 to USD 0.0010. At a QTOV price of seventy dollars, the staked capital at half staked is about 160 million dollars and at seventy percent staked about 224 million dollars. To pay the top of the band, 2.4 percent, on the half staked capital is about 3.84 million dollars a year reaching validators. The sustained transaction rate that generates that in fees, if the whole fee reaches validators, is the table below, at the low, middle, and high of the fee band.
+
+| Target | Fee 0.0010 | Fee 0.0005 | Fee 0.0001 |
+| --- | --- | --- | --- |
+| 2.4 percent at 50 percent staked | about 122 per second | about 244 per second | about 1,218 per second |
+| 1.8 percent at 50 percent staked | about 91 per second | about 183 per second | about 913 per second |
+| 2.4 percent at 70 percent staked | about 170 per second | about 341 per second | about 1,706 per second |
+| 1.8 percent at 70 percent staked | about 128 per second | about 256 per second | about 1,279 per second |
+
+Read this honestly. If a share of every fee is burned or routed to the treasury rather than reaching validators, the transaction rate required rises by the inverse of the validator share, so a half share to validators doubles every number above. The verdict is that holding the band on fees alone needs on the order of a few hundred sustained transactions a second at the middle of the fee band, and up to a couple of thousand at the bottom of the fee band or with a large burn. That is between about a tenth of a percent and a few percent of the hundred thousand a second capacity, so it is realistic for a working settlement chain but it is not automatic and it is demanding at the bottom of the fee band. If real sustained volume stays below that, fees cannot hold the band and the choice at that point is to let the yield fall below the band or to open a governance mint to top it up. So the terminal handover is achievable at genuine adoption and it is a real risk if adoption is thin, and it is better known now.
+
+## Delegation, still the founder decision, now load bearing
+
+The break even is the crux and the arithmetic is the founder's. A minimum bond of 2,000 QTOV at seventy dollars is 140 thousand dollars, and at the top of the band, 2.4 percent, it earns about 3,360 dollars a year against a server cost of three to six thousand dollars, so a solo validator at the minimum bond does not break even. That is a property of the low band, not a mistake, because a higher yield would clear it but would leave the band. So either operators run many bonds each, amortising one server across many bonds the way Ethereum solo staking does, or delegation carries the small holder. Both need the delegation model decided, and the two structures are these.
+
+Delegation to a validator of the holder's choice. The holder picks a validator, its stake adds to that validator's weight, and it shares that validator's reward and its slashing exposure. What the delegator does for its share is put real capital at risk, bonded and slashable if its chosen validator commits a fault, which raises the economic cost of attacking the set, and it disperses power by choosing among many validators. What the delegator does not do is run hardware, verify a block, or perform any consensus duty, all of which stay with the validator. This is what both majors do and it disperses power.
+
+Pooling behind an operator. The holder's stake sits behind an operator that runs the node and controls the consensus participation. What the delegator does for its share is again put capital at risk. What it does not do, beyond the above, is choose among validators, so power concentrates in whoever runs the pool. This concentrates rather than disperses.
+
+The distinction the founder wants visible in the spec, stated plainly. A reward for passive holding and a reward for securing the chain are different things, and the model pays only the second. Holding QTOV in a wallet earns nothing. Staking, whether by running a validator or by delegating to one, earns a reward because the capital is bonded and slashable, so it is securing the chain economically even when the holder does no work. The validator earns for that same capital at risk plus the work of attesting and proposing, and the delegator earns only for the capital at risk and shares the validator's slashing if the validator fails. So a delegator is paid for economic security it provides by putting slashable capital behind an operator, not for labour it does not perform and not for merely holding a token. The recommendation, which is the founder's to accept or reject, is delegation to a chosen validator with a modest minimum self stake and multi bond operators as the professional tier, because it carries the small holder at a low yield while dispersing rather than concentrating power.
+
+## The unbonding period against the evidence window, the finding restated at 21 days
+
+The frozen unbonding is twenty one days after the ninety day lock. It was checked against the time evidence takes to surface, not assumed, and it does not clear every attributable fault. It is adequate for the faults whose evidence is on chain when they happen, the double draw, the out of position preimage, equivocation, and a cartel whose coordinated blocks and votes are recorded at the time. It is not adequate for two. Bridge attestation fraud surfaces only when the slowest bridged corridor finalises or its dispute window closes, which can exceed twenty one days, so bridge exposed stake needs an unbonding at least as long as the slowest graded corridor's finality plus dispute window. A long range attack cannot be bounded by any unbonding period, because its evidence surfaces whenever the attacker chooses to reveal the alternate history, and it needs a weak subjectivity checkpoint rather than a longer unbonding. Both gaps are flagged, and neither remedy is wired in without the founder, because a weak subjectivity checkpoint is a consensus model addition.

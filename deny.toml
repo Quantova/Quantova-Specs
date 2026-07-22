@@ -1,0 +1,56 @@
+# Quantova classical-crypto deny-list.
+#
+# POLICY-crypto.md (Quantova-Specs) is the supreme law; this file is its machine-readable form.
+# Enforced in EVERY repo except Q-Oracle. Run `cargo deny check` before every PR; CI runs it too.
+#
+# Classical cryptography is unrepresentable: these crates are banned anywhere in the dependency tree,
+# INCLUDING transitive and dev-dependencies. No workarounds, no test-only exceptions, no feature flags.
+
+[graph]
+all-features = true
+
+[bans]
+# Duplicate versions of a crate are drift and a hard failure here, never a
+# warning. The single crypto crate is the one this guards. It must resolve to
+# exactly one version across the whole graph, so a split crypto graph cannot land
+# quietly. The stack carries no third party registry crates, so the only way a
+# duplicate arises is a pin left behind at an old tag.
+multiple-versions = "deny"
+# The stack has no third party registry crates, only the standard library and our
+# own crates pinned by git tag and path, which carry no registry version. The
+# wildcard check has nothing to guard here and only false flags our own pins.
+wildcards = "allow"
+deny = [
+    "k256",
+    "ed25519-dalek",
+    "curve25519-dalek",
+    "p256",
+    "secp256k1",
+    "rsa",
+    "bls12_381",
+    "ark-ec",
+    "ark-bls12-381",
+    "ark-groth16",
+    "pairing",
+    "openssl",
+    "openssl-sys",
+]
+
+[advisories]
+version = 2
+yanked = "deny"
+unmaintained = "workspace"
+
+[licenses]
+version = 2
+allow = ["Apache-2.0", "MIT"]
+confidence-threshold = 0.9
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+
+# The stack pins its own crates from the Quantova organization by git tag. Any
+# other git source stays denied.
+[sources.allow-org]
+github = ["Quantova"]

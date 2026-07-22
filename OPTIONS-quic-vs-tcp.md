@@ -1,0 +1,31 @@
+# QUIC against reality, the transport reconciliation
+
+Status. This is a decision paper for the founder, not normative. The fixed decisions say the transport is QUIC. What runs is the real post quantum secure channel, the ML-KEM and module lattice handshake with the symmetric record layer, over a reliable byte stream, which today is TCP. That is a record against reality gap, and this paper is the reconciliation, not a defect report. It sets out what QUIC buys over TCP for our traffic, whether it matters at our block sizes and slot times given block dissemination is now erasure coded, what it costs to build, and the two honest outcomes. Either outcome is fine. It builds nothing.
+
+## What QUIC buys over TCP
+
+QUIC runs over UDP and adds three things a plain reliable byte stream does not have. It multiplexes independent streams over one connection, so a lost packet on one stream does not stall the others, where a byte stream has head of line blocking and a lost packet stalls everything ordered behind it. It carries its own congestion control in userspace, tunable per traffic, where the byte stream's lives in the kernel. And it sets up in one round trip and can migrate a connection across an address change. Its built in encryption is TLS, which we do not use because we run our own post quantum handshake, so that part is moot for us.
+
+## Whether it matters for our traffic
+
+Our traffic is gossip of many independent messages, erasure coded block shards, attestations, and a finality certificate, across a mesh where each peer is its own connection. Two things decide whether QUIC's head of line avoidance matters.
+
+The first is the block dissemination, which is now erasure coded shards. A node reconstructs a block from any k of the n shards, so a shard delayed by head of line blocking on one connection is absorbed, the other shards and the parity rebuild the block without it. The erasure coding already provides the delay tolerance that QUIC's multiplexing would provide for the block, so for the block the two overlap and QUIC adds little on top.
+
+The second is the consensus messages, the attestations and the certificate, which are not erasure coded. A delayed attestation on one connection over a lossy wide area could arrive a retransmit round trip late, on the order of a hundred to three hundred milliseconds, which is large against a hundred and fifty millisecond slot. But the protocol tolerates this too, finality forms on a supermajority of two thirds plus one, so a late attestation from one member does not stall the round when the supermajority is in. The supermajority rule absorbs a delayed attestation the way erasure coding absorbs a delayed shard.
+
+So the honest reading is that the protocol's own loss and delay tolerance, any k shards and a supermajority of attestations, already covers most of what QUIC's head of line avoidance would buy, and QUIC's marginal benefit for us is smaller than for a chain that sends each block whole over one ordered stream. Where it could still matter is a lossy wide area under a leader whose whole peer connection stalls, and only a measured distributed run tells us whether that blows the slot budget in practice.
+
+## What it costs to build
+
+A QUIC we could use is a large build under our law. It is UDP datagrams, a congestion controller, stream multiplexing, flow control, and loss recovery, from scratch, because no external QUIC library is admissible without proving it pulls no classical crypto, and our handshake must stay the post quantum one, not QUIC's TLS. That is a substantial transport effort, not a wrapper, and it competes with the availability architecture and the distributed run for the same time.
+
+## The two outcomes, and the recommendation
+
+Change the code to QUIC, chase the spec, and pay the build, justified only if a measured wide area run shows the byte stream's head of line blocking blows the slot budget past what the protocol's tolerance absorbs. Or change the fixed decision to say what we built, a post quantum secure channel over a reliable byte stream, and revisit QUIC only if a measurement demands it. The recommendation is the second, change the decision to reflect the wire, because the protocol's loss tolerance already covers most of QUIC's benefit, the build is large, and no measurement yet shows the byte stream is the bottleneck. If the distributed run shows the stream stalling at the slot, that reopens the first outcome with evidence. The founder decides, and either way the spec and the wire must state the same thing.
+
+## The pattern, because this is the fourth
+
+This is the fourth time the record said one thing and the implementation did another. Validators were phone class in the record and server class in the decision. The sortition was C in the proof and the old draw in the running chain. The throughput was a committed hundred thousand in the record and a number we could not reach. And now the transport is QUIC in the record and a byte stream on the wire. The pattern is a normative claim in the specification that the implementation does not match, and each time it was found by an outside read or by accident, not by a check.
+
+The mechanical form of this drift, a tag disagreeing with a lockfile, is now caught by the pin agreement gate. This form is semantic, does the code do what the words say, and it is harder. The way to catch it is that every concrete claim in the fixed decisions carries a check that asserts the implementation matches, a conformance vector where it is testable and a named assertion where it is not, run in CI beside the deny and the pin gates. The transport claim is testable, a check that the channel is the declared transport. The validator class is testable against the resource budget. The sortition is testable, the eligibility and regression vectors already do it. The throughput claim is not a code property, it is a claims discipline, and it is held by the measurement rule. Where a claim cannot be mechanised it is a standing item for the outside audit. So the class is closed by pairing each fixed decision with its check and by the outside read for the rest, and this paper flags that the fixed decisions need that pass, not only the QUIC line.
