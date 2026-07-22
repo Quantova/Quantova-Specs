@@ -6,7 +6,7 @@ The transport is our own protocol over a reliable byte stream, which is TCP toda
 
 ## The handshake
 
-Two peers open a reliable byte stream connection and run a post quantum handshake. Each peer has a long term module lattice identity key whose public part is its peer identity. The peers exchange ML KEM encapsulations to establish a shared secret, and each signs the transcript with its identity key so the other knows who it is talking to. There is no elliptic curve key exchange anywhere. A peer identity is rendered in the identifier format, never in hex.
+Two peers open a reliable byte stream connection and run a post quantum handshake. Each peer has a long term module lattice identity key whose public part is its peer identity. The operator derives this identity key from its own node secret and holds it only on its own machine, Quantova never holds it, and only the public peer identity leaves the machine. The peers exchange ML KEM encapsulations to establish a shared secret, and each signs the transcript with its identity key so the other knows who it is talking to. There is no elliptic curve key exchange anywhere. A peer identity is rendered in the identifier format, never in hex.
 
 ## Encryption
 

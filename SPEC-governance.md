@@ -10,7 +10,7 @@ QONCORD is the governance protocol of Quantova. It runs parallel referendum trac
 
 Governance runs as seven parallel tracks. Each track has its own deposit, its approval and support thresholds, and its voting period. Approval is the share of votes cast in favour. Support is the share of staked value that turned out. Both thresholds must be met for a track to pass. The genesis values are frozen starting points and change later only through the Chain upgrades track.
 
-1.1 Chain upgrades. The most powerful track. It carries runtime upgrades and every root gated action, the fees, the parameters, the governance configuration, and sensitive maintenance. Its deposit is 600 thousand QTOV, the highest on the chain. It passes at 80 percent approval with 40 percent support, on a strong and deliberate schedule. The root authority of The LA super user is handed to this track at mainnet, so from then on no single key can act.
+1.1 Chain upgrades. The most powerful track. It carries runtime upgrades and every root gated action, the fees, the parameters, the governance configuration, and sensitive maintenance. Its deposit is 600 thousand QTOV, the highest on the chain. It passes at 80 percent approval with 40 percent support, on a strong and deliberate schedule. The root authority of The LA super user exists only to bootstrap the testnet, it is handed to this track at mainnet so from then on no single key can act, and that key is never included when the stack is open sourced.
 
 1.2 Mint QTOV. The only path that creates new QTOV after genesis. Its deposit is 250 thousand QTOV. It passes at 80 percent approval with 35 percent support and resolves in three days, so newly raised capital or network need can be met quickly. No single key can mint.
 
