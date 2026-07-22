@@ -1,4 +1,4 @@
-# Qorus — the Quantova post quantum consensus and VRF
+# Qorus, the Quantova post quantum consensus and VRF
 
 Status. Working draft, not normative, not committed, not built. Internal codename Sturche.
 This is the design we build from the ground up, our own protocol on cited foundations. It

@@ -1,4 +1,4 @@
-# Qorus PQ-VRF — construction and the security it must prove
+# Qorus PQ-VRF, construction and the security it must prove
 
 Status. Phase one build artifact, working draft, not normative, not committed, not built. This
 is the exact construction of the Quantova post quantum verifiable random function, the
