@@ -56,7 +56,7 @@ The stage one core has a machine checked TLA+ specification, and the state machi
 
 ### The virtual machine, the QVM
 
-The QVM is the execution layer. It is a register machine that runs a compiled container, the machine's own unit of code. It is not the Ethereum virtual machine and it is not a WebAssembly runtime. The instruction set, the container format, the gas model, and the crypto opcodes are all its own.
+The QVM is the execution layer. It is a register machine that runs a compiled container, the machine's own unit of code. It is not the Ethereum virtual machine. The instruction set, the container format, the gas model, and the crypto opcodes are all its own.
 
 The machine has sixteen general registers holding 64 bit words, a program counter, a bounded operand and call stack, and a linear scratch memory of 64 KiB that is zeroed at entry and sized to hold a full post quantum key, signature, or proof. There is no floating point anywhere. Arithmetic is checked, so an overflow is a fault and not a wrap unless the instruction is an explicit wrapping one, and a widening high word multiply forms a 128 bit product from two 64 bit words with no wider machine word. Every instruction has a fixed byte encoding and one deterministic gas cost, and on any fault, an overflow, a division by zero, a bad jump, a bad memory access, or running out of gas, the machine rolls back and records nothing. Only a clean halt surfaces state changes and effects.
 

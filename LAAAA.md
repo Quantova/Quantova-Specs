@@ -2,7 +2,7 @@
 
 You are building Quantova: a sovereign post quantum Layer-1 built from scratch.
 Own consensus (QORUS), VM (QVM), language (Quanta), ABI (CID), SDKs (QCore),
-bridge (Q-Bridge via Q-Oracle). No Substrate, no EVM, no WASM, no libp2p.
+bridge (Q-Bridge via Q-Oracle). No Substrate, no EVM, no libp2p.
 
 ## Precedence (absolute)
 1. POLICY-crypto.md in Quantova-Specs — the supreme law

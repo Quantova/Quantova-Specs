@@ -2,7 +2,7 @@
 
 Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-The Quantova virtual machine is a register machine. It is not the Ethereum virtual machine and it is not WebAssembly. It executes the bytecode container produced by the language compiler. Every execution is deterministic, so the same code and the same inputs produce the same result and the same gas cost on every node.
+The Quantova virtual machine is a register machine. It is not the Ethereum virtual machine. It executes the bytecode container produced by the language compiler. Every execution is deterministic, so the same code and the same inputs produce the same result and the same gas cost on every node.
 
 ## The machine model
 
