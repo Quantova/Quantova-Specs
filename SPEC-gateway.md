@@ -14,7 +14,7 @@ A deposit locks value on the foreign chain, the translation layer attests to it,
 
 ## Supported networks and assets
 
-The bridge targets 37 origin chains and 68 origin assets. A corridor activates one at a time through a standards proposal, and it is graded before it opens. The registry below is the seed set. It grows only through a standards proposal and never through an operator action.
+The bridge targets 36 origin chains and 70 origin assets. A corridor activates one at a time through a standards proposal, and it is graded before it opens. The registry below is the seed set. It grows only through a standards proposal and never through an operator action.
 
 The seed registry is as follows. Bitcoin carries BTC. Ethereum carries ETH, USDT, USDC, LINK, SHIB, and UNI. BNB Smart Chain carries USDT, BNB, LINK, FDUSD, and TUSD. Solana carries USDT, SOL, USDC, RENDER, BONK, and WIF. TRON carries USDT, TRX, TUSD, and XAUT. Polygon carries USDT, USDC, LINK, UNI, AAVE, and POL. Arbitrum carries ETH, USDT, USDC, LINK, UNI, and AAVE. Base carries ETH, USDC, LINK, AERO, VIRTUAL, and wstETH. Cosmos Hub carries ATOM. The remaining chains toward the target join the registry as their corridors are graded and activated. Every registry row carries an origin tag and a per corridor trust grade.
 
