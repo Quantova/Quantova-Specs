@@ -9,9 +9,15 @@ and only the founder gives it.
 ## The honest line between what exists and a testnet
 
 This is the founder's own line, recorded so the distance is never blurred by a
-green build or a passing test.
+green build or a passing test. It is a point in time record, and the staking
+sentences in the next paragraph describe that point in time. Bonded staking,
+rewards, and slashing have since been built and are enforced in the node.
+Reward payout still does not start until mainnet begins, so no validator earns
+or claims a reward on the network today, and that current state is stated
+plainly in the status section of the specifications readme rather than
+rewritten into the historical paragraph below.
 
-Bonded staking does not exist. The validator set is written into genesis rather than
+At the time this was recorded, bonded staking did not exist. The validator set is written into genesis rather than
 bonded. Each validator generates its own 32 byte secret in its own keystore on its own
 machine, which Quantova never holds and never sees, and from that one secret it derives
 its sortition key, its ML DSA 65 signing key, its peer to peer identity key, and its bond

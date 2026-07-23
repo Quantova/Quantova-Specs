@@ -3,7 +3,7 @@
 Status. Working draft, not normative, not committed, not built. Internal codename Sturche.
 This is the design we build from the ground up, our own protocol on cited foundations. It
 supersedes the earlier STARK certificate direction, which is dropped because proving was too
-slow to make every block, 136 seconds for a small batch on one core.
+slow to make every block on affordable hardware.
 
 Author position on originality. The protocol, the mechanism, the randomness construction, and
 every line of code are ours and new. The foundations underneath, secure hashing, the hardness
@@ -123,11 +123,12 @@ Finality. Deterministic and targeted under one second on good networks. Real and
 Throughput. There are two different signature walls and they need different answers. The
 consensus certificate wall, the cost of proving a quorum agreed, Qorus removes with the
 folding and compression. The transaction signature wall, one post quantum signature on every
-user transaction, is the true cap on TPS and Qorus does not lift it by itself, because users
-sign independently and post quantum signatures do not fold cheaply. Six figure TPS needs
-smaller transaction signatures, Falcon once final, or a proof over many transactions, and
-those are separate levers pursued honestly. Every throughput number we publish is measured on
-real hardware and defensible under scrutiny, never a marketing figure.
+user transaction, is the true cap on throughput and Qorus does not lift it by itself, because
+users sign independently and post quantum signatures do not fold cheaply. A materially higher
+throughput needs smaller transaction signatures, Falcon once final, or a proof over many
+transactions, and those are separate levers pursued honestly. No throughput number is
+published until it is measured on real hardware, committed as a results file, and defensible
+under scrutiny, never a marketing figure.
 
 Fit for governments and banking. Post quantum security end to end, deterministic sub second
 settlement finality, tiny auditable certificates, on finalised standards only. That
