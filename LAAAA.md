@@ -110,11 +110,10 @@ foreign artifacts are exactly {attestation, stark_proof}.
 ## Claims discipline (all READMEs, docs, comments)
 SAY: "sub-second deterministic finality", "near-trustless Bitcoin deposits",
 "trust minimized exits".
-Do NOT claim a TPS figure in anything public. Throughput is held until measured
-end to end; the committed 100k envelope is retired (a committed number is a
-promise, and this is not one). The three internal throughput numbers workers
-build against (measured, architecture ceiling at the floor, design target) live
-in HANDOFF, kept separate, none published.
+Do NOT claim a TPS figure in anything public, and do not claim one internally
+either. No throughput, sustained rate, or benchmark figure is written into any
+document, including a retired one named for contrast, until the finished stack
+is benchmarked end to end and the result is committed as a results file.
 NEVER: "millisecond global finality", "fully trustless bridge", "quantum-proof". ALWAYS state the true and stronger form, post quantum end to end with nothing that secures the chain vulnerable to Shor, and never write that the chain is not quantum secure, because that is false.
 
 ## Measurements are committed or provisional
