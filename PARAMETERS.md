@@ -6,6 +6,10 @@ Status. This document is normative. It sits under the crypto policy. If anything
 
 The block interval is one second. The node paces block production so that a height does not open before roughly a second has passed since the last one, which is a floor on the pace rather than a promise of an exact clock, since real proposal and attestation time still varies within it. This is distinct from the shorter internal timing the consensus round uses while it works within that second to select a leader and gather attestations, which is its own protocol parameter and not the block cadence a user or an operator should expect.
 
+## Chain identity
+
+The network is named and the numeric chain identifier is derived from that name, never chosen as a bare number. Mainnet is Q1, testnet is Q3, and the development network is Q-dev-net-1. The numeric chain id that a transaction signs is the leading eight bytes of the SHA3-256 of the network name, so every signature is bound to one network and can never be replayed onto another. The name is the pinned identity and the number always follows from it, so there is one place to change and no bare hexadecimal identifier lives anywhere in the stack.
+
 ## Mempool capacity
 
 The mempool admits up to sixty five thousand five hundred and thirty six transactions in total, with a limit of one thousand and twenty four transactions from any one sender and a reserved allowance of five hundred and twelve slots held for the highest priority transactions so a flood from low fee senders cannot crowd out the pool entirely. The bound is a count of transactions, not a byte size, and when the pool is full the lowest fee transaction is evicted first to make room for a higher one.
