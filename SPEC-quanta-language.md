@@ -33,7 +33,7 @@ signed by. A parameter written `p: T signed by owner` has the effective type `Q_
 
 conserves. An entry clause `conserves ASSET` runs a linear flow analysis over the intermediate form and proves on every path that asset in equals asset out plus explicit fees. A leaking or minting path is a compile error that names the line.
 
-invariant. A contract level `invariant Expr;` inserts a gas metered check of Expr into the epilogue of every state writing entry, and a violation reverts.
+invariant. A contract level `invariant Expr;` inserts a meter metered check of Expr into the epilogue of every state writing entry, and a violation reverts.
 
 Quorum and after. A parameter of type `Quorum<M of N, set>` is constructed by the machine only from M valid guardian signatures, and an entry clause `after 7 days from anchor` compiles to a consensus time guard.
 

@@ -6,7 +6,7 @@ The mempool holds admitted transactions that are waiting to enter a block, and t
 
 ## Admission
 
-A transaction enters the mempool only when it is valid, meaning its encoding is canonical, its signature verifies, its nonce matches the next expected value of the sender, and the sender can pay the fee and the gas. An invalid transaction is refused at the edge and never held.
+A transaction enters the mempool only when it is valid, meaning its encoding is canonical, its signature verifies, its nonce matches the next expected value of the sender, and the sender can pay the fee and the execution meter. An invalid transaction is refused at the edge and never held.
 
 ## Priority
 

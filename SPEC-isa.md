@@ -2,7 +2,7 @@
 
 Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-The Quantova virtual machine is a register machine. It is not the Ethereum virtual machine. It executes the bytecode container produced by the language compiler. Every execution is deterministic, so the same code and the same inputs produce the same result and the same gas cost on every node.
+The Quantova virtual machine is a register machine. It is not the Ethereum virtual machine. It executes the bytecode container produced by the language compiler. Every execution is deterministic, so the same code and the same inputs produce the same result and the same meter cost on every node.
 
 ## The machine model
 
@@ -22,9 +22,9 @@ The machine exposes the post quantum operations as native instructions so a cont
 
 The key encapsulation instruction seals a value at submission. Opening a sealed value at execution needs two further instructions the machine does not yet expose, a key decapsulation that recovers the shared secret and an authenticated symmetric decryption under a 256 bit symmetric primitive. These instructions, together with the model for which key opens a sealed value and at what point in sequencing it opens, are specified and added in the sequencing wave, because the opening is coupled to how the mempool orders and reveals a block. Until then the compiler refuses to lower a sealed opening rather than read sealed bytes in the clear, and the front running guarantee stays a compile time fact enforced by the type checker.
 
-## Gas
+## Metering
 
-Every instruction has a fixed gas cost. The cost of a cryptographic instruction is set from the measured cost of the primitive in the cryptography benchmarks, not guessed, and the gas schedule records the source of each number. Gas is exact and deterministic. An execution that runs out of gas faults and rolls back its state changes.
+Every instruction has a fixed meter cost. The cost of a cryptographic instruction is set from the measured cost of the primitive in the cryptography benchmarks, not guessed, and the meter schedule records the source of each number. The meter is exact and deterministic. An execution that runs out of meter faults and rolls back its state changes.
 
 ## The container
 
@@ -32,4 +32,4 @@ A contract is a bytecode container. The container holds the code, a constant poo
 
 ## Signature verification dispatches on the scheme
 
-The machine has a verification instruction for each account signature scheme. There is one for ML DSA and one for SLH DSA, and a third for FN DSA that sits behind the same feature flag the crypto crate uses for fn dsa and is off in every default build until the standard is final. When the machine checks an account signature it reads the one byte scheme identifier from the envelope and dispatches to the matching verify instruction. The gas cost of each verify instruction is taken from the benchmark of that scheme in the crypto crate, not guessed.
+The machine has a verification instruction for each account signature scheme. There is one for ML DSA and one for SLH DSA, and a third for FN DSA that sits behind the same feature flag the crypto crate uses for fn dsa and is off in every default build until the standard is final. When the machine checks an account signature it reads the one byte scheme identifier from the envelope and dispatches to the matching verify instruction. The meter cost of each verify instruction is taken from the benchmark of that scheme in the crypto crate, not guessed.

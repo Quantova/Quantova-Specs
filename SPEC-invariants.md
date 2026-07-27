@@ -16,7 +16,7 @@ Cryptography is versioned. A scheme identifier byte precedes every key, every si
 
 ## Determinism
 
-Everything that consensus verifies is deterministic. Given the same inputs, every node computes the same output. There is no floating point in any consensus, gas, or state path. Gas is exact. Iteration order over any structure that affects state is fixed by the specification.
+Everything that consensus verifies is deterministic. Given the same inputs, every node computes the same output. There is no floating point in any consensus, meter, or state path. The meter is exact. Iteration order over any structure that affects state is fixed by the specification.
 
 ## The security floor
 

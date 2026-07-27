@@ -35,7 +35,7 @@ STOP AND REPORT. Do not proceed, do not work around.
 - Q-Crypto, the ONLY crypto implementation (qtv-crypto); most restricted repo
 - Quantova-Chain, codec/account/tx/block/state crates; node binary LAST (integration repo)
 - Quantova-Conformance, frozen vectors + hostile vectors + runner
-- QVM, register ISA, interpreter, gas, PQ opcodes, .qbc container, fuzz
+- QVM, register ISA, interpreter, meter, PQ opcodes, .qbc container, fuzz
 - Q-Primitives, Q_* catalog conformance (Q_Sig, Q_Asset, Q_Commit, Q_Rand, Q_Sealed, Q_Key)
 - Quanta-Smart-Contract-language, Quanta compiler (.qs to .qbc + CID); exploits must fail to compile
 - QRC-CONSENSUS, QORUS: sim first, then qtv-bft/sampler/attest; formal/ TLA+; research/ QSP-gated

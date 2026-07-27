@@ -2,7 +2,7 @@
 
 Status. This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report.
 
-This document defines the primitive types that the language and the machine share. Each type maps to a backing machine instruction and to a clear gas rationale, and each is defined so that a value of the type can only be produced in the sanctioned way.
+This document defines the primitive types that the language and the machine share. Each type maps to a backing machine instruction and to a clear meter rationale, and each is defined so that a value of the type can only be produced in the sanctioned way.
 
 ## The address type
 

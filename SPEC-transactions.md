@@ -6,7 +6,7 @@ A transaction carries an action against the chain, signed by the account that au
 
 ## The wrapper
 
-A transaction is a wrapper around a body. The body holds the sender address, a nonce that orders the transactions of a sender and stops replay, the gas limit, the fee, and the call, meaning the target and the encoded arguments. The wrapper adds the scheme identifier and the signature over the canonical encoding of the body. A verifier recomputes the body hash by the codec, checks the signature under the scheme identifier, and only then admits the transaction.
+A transaction is a wrapper around a body. The body holds the sender address, a nonce that orders the transactions of a sender and stops replay, the meter limit, the fee, and the call, meaning the target and the encoded arguments. The wrapper adds the scheme identifier and the signature over the canonical encoding of the body. A verifier recomputes the body hash by the codec, checks the signature under the scheme identifier, and only then admits the transaction.
 
 ## Domain separation
 
@@ -18,4 +18,4 @@ The fee is paid in the native asset. The nonce increases by one for each admitte
 
 ## Validity
 
-A transaction is valid when its encoding is canonical, its signature verifies, its nonce matches, and the sender can pay the fee and the gas limit. An invalid transaction is refused at ingress and never enters a block.
+A transaction is valid when its encoding is canonical, its signature verifies, its nonce matches, and the sender can pay the fee and the execution meter limit. An invalid transaction is refused at ingress and never enters a block.

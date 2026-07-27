@@ -22,7 +22,7 @@ The contract language is Quanta. It is familiar to Solidity developers but share
 
 The interface descriptor is the CID, with SHA 3 selectors, embedded in every deployed container and fetchable on chain.
 
-The virtual machine is the QVM, a custom register machine with 64 bit words, deterministic gas, and native post quantum opcodes. It is not the Ethereum virtual machine.
+The virtual machine is the QVM, a custom register machine with 64 bit words, deterministic meter, and native post quantum opcodes. It is not the Ethereum virtual machine.
 
 The peer layer is our own QUIC protocol with ML KEM key exchange and an ML DSA identity handshake, with no external peer library and no classical key exchange, including on development networks.
 
