@@ -24,36 +24,32 @@ needs, one committee draw per slot. It is not a general purpose VRF evaluable an
 number of times on arbitrary inputs, because the one time keys underneath are consumed one per
 slot. The finite key tree and its rotation are addressed under key management below.
 
-## Measured on real hardware, and what it settles
+## Why the stateless option is the wrong tool, and what it settles
 
-A first measurement on rack06 of the stateless option, the SLH-DSA-SHAKE-192s VRF already in
-Q-Crypto, is recorded here so the construction choice rests on numbers, not taste. It is
-correct and quantum safe, verify passes, the proof is 16 KB, the keys are tiny, verify is about
-3 ms, and keygen is about 397 ms. But evaluate is about 3.6 seconds, because stateless SPHINCS+
-signing is slow by nature and the small signature variant is the slowest of the family. Three
-and a half seconds per draw is fatal for a per slot VRF and would end any hope of sub second
-finality.
+The stateless option, the SLH-DSA-SHAKE-192s VRF already in Q-Crypto, is correct and quantum
+safe and its keys are tiny, but its evaluation cost is dominated by stateless SPHINCS+ signing,
+which is slow by nature and slowest of all in the small signature variant. That per draw cost is
+fatal for a per slot VRF and would end any hope of sub second finality.
 
 This settles the construction. Stateless is the wrong tool for a per slot operation. The one
 time construction is the right one, and it is what our existing sortition already runs on. The
 stateless SLH-DSA VRF stays available for rare, non per slot uses. The per slot VRF is the one
 time construction.
 
-The fast construction, measured on rack04. The per slot VRF is realised over our own
-qtv-sampler one time preimage tree, output is SHA3-256 of a domain tag, the slot's secret
-preimage, and the beacon, proof is the preimage plus its Merkle path to the account's committed
-root. Measured:
+The fast construction. The per slot VRF is realised over our own qtv-sampler one time preimage
+tree, output is SHA3-256 of a domain tag, the slot's secret preimage, and the beacon, proof is
+the preimage plus its Merkle path to the account's committed root. Its properties:
 
-- evaluate about 2 microseconds, flat across tree sizes.
-- verify about 16 to 22 microseconds.
-- proof 480 bytes at 16k slots, up to 672 bytes at a million slots.
-- one time tree build 78 ms at 16k slots up to 3.3 s at a million slots, an epoch provisioning
-  cost, not a per slot one.
+- evaluation is constant time, flat across tree sizes, and orders of magnitude faster than the
+  stateless option.
+- verification is a small number of hashes plus a Merkle path check.
+- the proof is a few hundred bytes, growing only slightly with tree size.
+- one time tree build is an epoch provisioning cost, not a per slot one.
 
-Against the stateless option this is roughly a million times faster to evaluate, about 24 to 34
-times smaller in proof, and it removes the 3.6 second wall entirely. This is the construction
-the spec builds on. The realisation refines the earlier Winternitz sketch, our actual primitive
-is a one time preimage reveal, which is simpler and faster than a Winternitz signature.
+Against the stateless option it removes the per draw wall entirely and the proof is far smaller.
+This is the construction the spec builds on. The realisation refines the earlier Winternitz
+sketch, our actual primitive is a one time preimage reveal, which is simpler and faster than a
+Winternitz signature.
 
 ## The construction
 
