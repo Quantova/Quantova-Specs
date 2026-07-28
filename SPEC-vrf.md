@@ -10,7 +10,7 @@ There is a per block beacon and a per user function.
 
 The per block beacon produces a seed for each block. The seed is SHAKE256 over the previous seed, followed by the digest of the aggregated finality certificate for the block, followed by the block height. The certificate is an artifact that consensus already produces, so the beacon is a hash of an existing value and not a new round of computation. The beacon drives leader election in the consensus. Its cost to the block pipeline is one hash, and that cost is proven by benchmark, not asserted.
 
-The per user function lets a caller derive a random output bound to an input. The output is SHAKE256 over the ML DSA signature of the input, followed by the input. The full construction proves derandomized signing, the proof is the signature together with a STARK that the signing was run with a zero randomizer, and only that proof makes the output unique.
+The per user function lets a caller derive a random output bound to an input. The output is SHAKE256 over the hash based signature of the input, followed by the input. The construction uses the deterministic hash based signature set out below, so the same key and input always yield the same signature and the same output with no randomizer to vary, and the output is verified by rechecking that signature and its Merkle authentication. It carries no proof system and no STARK.
 
 A correction is required here and it is load bearing. Uniqueness does not come from an honest signer choosing to derandomize. A signature made with a different randomizer over the same key and input verifies equally and yields a different output, and a verifier without the secret key cannot tell a derandomized signature from a hedged one, because the randomizer is not in the encoding. So a bare signature and hash does not enforce uniqueness against an adversary, and a sortition built on it is grindable.
 
@@ -20,15 +20,9 @@ This is resolved for the committee sortition by the one time key construction in
 
 The beacon input is the concatenation of three fields in this order. First the previous seed, which is 32 bytes. Then the certificate digest, which is 32 bytes. Then the height, which is an eight byte unsigned integer encoded little endian by the codec. The output is the 32 byte SHAKE256 result. The first block uses a fixed genesis seed stated in the genesis tooling.
 
-## One interface, two constructions
+## The construction
 
-Both constructions implement one interface. The interface has an operation to generate an output for an input, an operation to produce a proof, and an operation to verify an output and its proof. The output type and the proof type are defined by the interface.
-
-The first construction is hash based. It uses SLH DSA and Merkle authentication. It is the conservative baseline, it allows an unlimited number of evaluations, and it is implemented first.
-
-The second construction is lattice based. It uses ML DSA and a STARK, and it produces compact proofs. It reuses the proving system in the prover repository.
-
-The benchmark chooses which construction is the default. Neither construction is removed.
+The function has one interface, an operation to generate an output for an input and an operation to verify an output. The construction is hash based. It uses SLH DSA and Merkle authentication, both deterministic, so the same key and input always yield the same signature and the same output, and a derived output is unique for a key and input without any proof over a signature. It allows an unlimited number of evaluations. There is no lattice proof and no STARK anywhere in generation or verification.
 
 ## Bias resistance as a reduction
 
