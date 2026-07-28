@@ -6,7 +6,7 @@ QORUS is the consensus of Quantova. It is a post quantum byzantine fault toleran
 
 ## The three stages
 
-Stage one is the byzantine fault tolerant core at genesis. It has 150 millisecond slots, deterministic leader rotation, attestations signed with the module lattice signature, and certificate aggregation done with a STARK rather than a pairing aggregate, since the pairing aggregate is broken by a quantum computer. Execution runs in parallel.
+Stage one is the byzantine fault tolerant core at genesis. It has 150 millisecond slots, deterministic leader rotation, attestations signed with the module lattice signature, and a finality certificate that is a threshold set of those module lattice signatures rather than a pairing aggregate, since the pairing aggregate is broken by a quantum computer. Execution runs in parallel.
 
 Stage two adds recursive succinctness to the certificate and opens the one tap validator in the application to the public.
 

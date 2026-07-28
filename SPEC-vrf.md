@@ -8,7 +8,7 @@ QVRF is the first verifiable random function composed entirely from NIST standar
 
 There is a per block beacon and a per user function.
 
-The per block beacon produces a seed for each block. The seed is SHAKE256 over the previous seed, followed by the digest of the aggregated STARK certificate for the block, followed by the block height. The certificate is an artifact that consensus already produces, so the beacon is a hash of an existing value and not a new round of computation. The beacon drives leader election in the consensus. Its cost to the block pipeline is one hash, and that cost is proven by benchmark, not asserted.
+The per block beacon produces a seed for each block. The seed is SHAKE256 over the previous seed, followed by the digest of the aggregated finality certificate for the block, followed by the block height. The certificate is an artifact that consensus already produces, so the beacon is a hash of an existing value and not a new round of computation. The beacon drives leader election in the consensus. Its cost to the block pipeline is one hash, and that cost is proven by benchmark, not asserted.
 
 The per user function lets a caller derive a random output bound to an input. The output is SHAKE256 over the ML DSA signature of the input, followed by the input. The full construction proves derandomized signing, the proof is the signature together with a STARK that the signing was run with a zero randomizer, and only that proof makes the output unique.
 

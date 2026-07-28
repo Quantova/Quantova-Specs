@@ -1,10 +1,10 @@
 # The governance specification
 
-This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report. It is implemented by the QONCORD protocol crates and the QONCORD system contracts written in Quanta. It depends on the consensus specification for the certificate wrapper and on the prover for the STARK circuits.
+This document is normative. It sits under the crypto policy. If anything conflicts with that policy, stop and report. It is implemented by the QONCORD protocol crates and the QONCORD system contracts written in Quanta. It depends on the consensus specification for the certificate wrapper.
 
 The guiding rule for every governance surface is that no vote is above the law.
 
-QONCORD is the governance protocol of Quantova. It runs parallel referendum tracks with stake weighted voting and delegation, and it rebuilds all of that on post quantum foundations. Every ballot is a lattice signature. Every tally is a STARK certificate that travels the same wrapper as consensus. Governance is bounded by a constitution that no track can cross.
+QONCORD is the governance protocol of Quantova. It runs parallel referendum tracks with stake weighted voting and delegation, and it rebuilds all of that on post quantum foundations. Every ballot is a lattice signature. Every tally is committed on chain from the counted lattice ballots. Governance is bounded by a constitution that no track can cross.
 
 ## 1. The five tracks
 
@@ -28,7 +28,7 @@ A node validator's consensus bond is a separate pool and carries no vote. Govern
 
 ## 3. Minting
 
-Minting the native asset exists only through the Mint QTOV track. It is uncapped. There is no supply ceiling and no per year limit, and the amount minted is whatever the referendum enacts, so newly raised capital or network need can be met on demand through a high threshold public vote. No single key can mint. Every mint permanently records the referendum identifier and the STARK tally certificate.
+Minting the native asset exists only through the Mint QTOV track. It is uncapped. There is no supply ceiling and no per year limit, and the amount minted is whatever the referendum enacts, so newly raised capital or network need can be met on demand through a high threshold public vote. No single key can mint. Every mint permanently records the referendum identifier and the committed tally.
 
 ## 4. Freeze and asset recovery
 
@@ -54,15 +54,15 @@ Third, an emergency freeze pauses and never moves value on its own, and every fr
 
 Fourth, freeze expiry, appeal windows, and scope locks are protocol invariants, so any referendum that violates them is unenactable, refused the way a malformed transaction is refused. Minting carries no ceiling invariant, because the mint is uncapped by decision.
 
-Fifth, every enacted referendum permanently stores the proposal hash, the scope hash where the action is a recovery, the STARK tally certificate, and the enactment receipt.
+Fifth, every enacted referendum permanently stores the proposal hash, the scope hash where the action is a recovery, the committed tally, and the enactment receipt.
 
 ## 6. The tally pipeline
 
-Each ballot is a lattice signature over the referendum identifier and the choice. Ballots are aggregated once for each epoch. Each referendum then produces exactly one STARK certificate that proves the tally, built from the prover circuits and carried on the same certificate wrapper as consensus. No classical aggregation appears anywhere in this pipeline.
+Each ballot is a lattice signature over the referendum identifier and the choice. Ballots are aggregated once for each epoch. Each referendum then commits its tally on chain from the counted lattice ballots, and that committed tally is the permanent record. No classical aggregation appears anywhere in this pipeline.
 
 ## 7. The enactment record
 
-For every enacted referendum the protocol stores the proposal hash, the scope hash when the action is a recovery, the STARK tally certificate, and the enactment receipt. The record is permanent and committed with the rest of state.
+For every enacted referendum the protocol stores the proposal hash, the scope hash when the action is a recovery, the committed tally, and the enactment receipt. The record is permanent and committed with the rest of state.
 
 ## 8. Amendment
 
@@ -70,7 +70,7 @@ Frozen genesis parameters and the five invariants change only through the Chain 
 
 ## 9. Claims discipline
 
-Say STARK proven tallies, scope bound recovery, machine enforced constitution, and no vote above the law. Never say capture proof, censorship proof, or unhackable.
+Say lattice signed ballots and an on chain committed tally, scope bound recovery, machine enforced constitution, and no vote above the law. Never say capture proof, censorship proof, or unhackable.
 
 ## 10. Conformance
 
