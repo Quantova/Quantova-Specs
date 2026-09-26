@@ -38,7 +38,7 @@ Recovery has two stages, and both are bound to a declared scope of exact address
 
 4.2 The instant freeze. A guardian caucus, a multisig and never one person, freezes exactly the listed addresses on the next block, within the hour, without waiting on a vote. A continuous on chain tracer follows the funds across every address they are moved or split into, however small, and freezes them within the same scope, so the thief cannot spend or escape. The freeze is locked to the scope and cannot widen, and it expires automatically unless the recovery referendum opens.
 
-4.3 Ratify and return. The Freeze and asset recovery referendum of section 1.4 ratifies the clawback in about six hours. On enactment the full amount returns to the address it was stolen from. Ordinary users are never touched.
+4.3 Ratify and return. The Freeze and asset recovery referendum of section 1.4 ratifies the clawback in about six hours. On enactment the full amount returns to the victim address named in the scope. The clawback takes from a frozen holder's free balance first, then from its validator bond, then from its governance vote lock, so stolen funds moved into staking are pulled back the same way. A frozen validator also drops out of the consensus roster the block its freeze lands, so stolen stake can never produce or finalize blocks, while the holder can still vote so a freeze can never silence the electorate. Ordinary users are never touched.
 
 4.4 Protected accounts. Treasury and foundation addresses are protected and can never be frozen or clawed, so the power can never be turned on the chain's own funds.
 
@@ -48,7 +48,7 @@ Five invariants are enforced by the protocol, and no track can cross them, not e
 
 First, no track may introduce classical or non approved cryptography, because the crypto policy outranks governance itself.
 
-Second, recovery can never reach validator stake, consensus parameters, or governance locks.
+Second, recovery can reach validator stake and governance locks only when their holder is frozen, stays inside its scope, and can never touch a protected network pot or consensus parameters.
 
 Third, an emergency freeze pauses and never moves value on its own, and every freeze expires unless a referendum confirms it.
 
@@ -74,4 +74,4 @@ Say lattice signed ballots and an on chain committed tally, scope bound recovery
 
 ## 10. Conformance
 
-Hostile vectors are frozen in the Quantova Conformance repository. A recovery action that reaches validator stake, and a fund moving emergency freeze, must each be unenactable. The QONCORD constitution crate carries the matching negative tests, written before any feature they gate.
+Hostile vectors are frozen in the Quantova Conformance repository. A recovery action that reaches the stake of a holder that was never frozen, and a fund moving emergency freeze, must each be unenactable. The QONCORD constitution crate carries the matching negative tests, written before any feature they gate.
