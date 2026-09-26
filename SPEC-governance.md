@@ -16,7 +16,7 @@ Governance runs as five parallel tracks. Each track has its own deposit, voting 
 
 1.3 Bridge pool migration. Moves the bridge pool to a new vault, a high value custody action. Its deposit is 150,000 QTOV. It runs five days, then waits a seven day enactment delay. It also carries bridge asset registration, epoch advance, operator revocation, and committee rotation. In an emergency the bridge is frozen first and the pool migrates under this vote inside the freeze window.
 
-1.4 Freeze and asset recovery. Emergency consumer protection. Its deposit is 29,250 QTOV. It ratifies in six hours, then waits a one hour enactment delay. The freeze itself is instant and handled by the guardian caucus in section 4. This vote ratifies the clawback fast enough to catch a thief. The full amount returns to the address it was stolen from, and ordinary users are never affected.
+1.4 Freeze and asset recovery. Emergency consumer protection. Its deposit is 29,250 QTOV. It ratifies in six hours, then waits a one hour enactment delay. The freeze itself is instant and handled by the guardian caucus in section 4. This vote ratifies the clawback fast enough to act before the funds move on. The full amount returns to the address it was taken from, and ordinary users are never affected.
 
 1.5 Blacklist and kill address. Retires a compromised or hostile address. Its deposit is 39,000 QTOV. It runs two days, then waits a one day enactment delay. Account freezes and unfreezes and the governance lift of a bridge freeze ride this track as well.
 
@@ -34,11 +34,11 @@ Minting the native asset exists only through the Mint QTOV track. It is capped b
 
 Recovery has two stages, and both are bound to a declared scope of exact addresses and amounts, so an action can never reach anything outside its scope.
 
-4.1 The scope. A report names the asset, the address the funds were stolen from, and the addresses and amounts in play, committed as a hash with SHA 3, the Qudros digest. The scope hash locks the action, so enactment can never widen beyond it.
+4.1 The scope. A report names the asset, the address the funds were taken from, and the addresses and amounts in play, committed as a hash with SHA 3, the Qudros digest. The scope hash locks the action, so enactment can never widen beyond it.
 
-4.2 The instant freeze. A guardian caucus, a multisig and never one person, freezes exactly the listed addresses on the next block, within the hour, without waiting on a vote. A continuous on chain tracer follows the funds across every address they are moved or split into, however small, and freezes them within the same scope, so the thief cannot spend or escape. The freeze is locked to the scope and cannot widen, and it expires automatically unless the recovery referendum opens.
+4.2 The instant freeze. A guardian caucus, a multisig and never one person, freezes exactly the listed addresses on the next block, within the hour, without waiting on a vote. A continuous on chain tracer follows the funds across every address they are moved or split into, however small, and freezes them within the same scope, so the frozen funds cannot be spent or moved on. The freeze is locked to the scope and cannot widen, and it expires automatically unless the recovery referendum opens.
 
-4.3 Ratify and return. The Freeze and asset recovery referendum of section 1.4 ratifies the clawback in about six hours. On enactment the full amount returns to the victim address named in the scope. The clawback takes from a frozen holder's free balance first, then from its validator bond, then from its governance vote lock, so stolen funds moved into staking are pulled back the same way. A frozen validator also drops out of the consensus roster the block its freeze lands, so stolen stake can never produce or finalize blocks, while the holder can still vote so a freeze can never silence the electorate. Ordinary users are never touched.
+4.3 Ratify and return. The Freeze and asset recovery referendum of section 1.4 ratifies the clawback in about six hours. On enactment the full amount returns to the recipient address named in the scope. The clawback takes from a frozen holder's free balance first, then from its validator bond, then from its governance vote lock, so value moved into staking is pulled back the same way. A frozen validator also drops out of the consensus roster the block its freeze lands, so frozen stake can never produce or finalize blocks, while the holder can still vote so a freeze can never silence the electorate. Ordinary users are never touched.
 
 4.4 Protected accounts. Treasury and foundation addresses are protected and can never be frozen or clawed, so the power can never be turned on the chain's own funds.
 

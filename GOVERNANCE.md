@@ -12,7 +12,7 @@ The Mint QTOV track is the only way new QTOV is ever created after genesis. Beca
 
 The Bridge pool migration track moves the bridge custody to a new vault on a security event. Its deposit is 150,000 QTOV, it runs five days, and it enacts after a seven day delay. It also carries bridge asset registration and the administration of the bridge committee and operators.
 
-The Freeze and asset recovery track ratifies the clawback of stolen funds back to the address they were taken from. Its deposit is 29,250 QTOV, it ratifies in six hours, and it enacts after a one hour delay. The freeze itself is instant and handled separately by the guardian caucus on the next block, this vote only confirms the return so a genuine theft can be reversed and honest users are never touched.
+The Freeze and asset recovery track ratifies the return of funds to the address they were taken from. Its deposit is 29,250 QTOV, it ratifies in six hours, and it enacts after a one hour delay. The freeze itself is instant and handled separately by the guardian caucus on the next block, this vote only confirms the return so a genuine loss can be reversed and honest users are never touched.
 
 The Blacklist and kill address track retires a compromised or hostile address. Its deposit is 39,000 QTOV, it runs two days, and it enacts after a one day delay. Account freezes and unfreezes and the governance lift of a bridge freeze ride this track too.
 
