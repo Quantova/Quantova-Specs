@@ -6,7 +6,7 @@ The Quantova Name Service is the human layer of identity. A name is short and re
 
 ## Names
 
-A name uses the suffix q. A name reads as a label, then a dot, then q. A name resolves forward to a Q1 address, and an address resolves back to its primary name, which is reverse resolution. Every name has an owner, an expiry, and a renewal.
+A name uses the capital suffix Q. A name reads as a lower case label, then a dot, then Q, as in alice.Q. A name resolves forward to a Q1 address, and an address resolves back to its primary name, which is reverse resolution. Every name has an owner, an expiry, and a renewal.
 
 ## The registry
 
