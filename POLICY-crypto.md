@@ -10,7 +10,7 @@ This policy binds every repository in the Quantova organization that is part of 
 
 ## The only cryptography that exists
 
-Only the following may secure anything anywhere in the stack. ML KEM for key encapsulation, from FIPS 203. ML DSA for signatures, from FIPS 204. SLH DSA for hash based signatures, from FIPS 205. FN DSA for compact signatures, once it is published in final form and kept behind a feature flag until then. SHA 3 and SHAKE for hashing, from FIPS 202. The 256 bit symmetric primitives, meaning ChaCha20 Poly1305 and AES 256. Hash based STARKs for succinct proofs, with no trusted setup. A hash based randomness function built on SHA 3 for sampling. Nothing else, ever. New cryptography enters only through the transition track described below, and only from this family.
+Only the following may secure anything anywhere in the stack. ML KEM for key encapsulation, from FIPS 203. ML DSA for signatures, from FIPS 204. SLH DSA for hash based signatures, from FIPS 205. FN DSA for compact signatures, once it is published in final form and kept behind a feature flag until then. SHA 3 and SHAKE for hashing, from FIPS 202. The 256 bit symmetric primitives, meaning ChaCha20 Poly1305 and AES 256. Hash based STARKs for succinct proofs, with no trusted setup. A hash based randomness function built on SHA 3 for sampling. Nothing else, ever. New cryptography enters only through the Chain upgrades governance track described below, and only from this family.
 
 ## Classical cryptography cannot be expressed
 
@@ -42,9 +42,9 @@ On every change, a new dependency triggers the first layer, new crypto code adds
 
 The Q Oracle repository is the only repository exempt from the banned dependency list. It runs off chain, watches foreign chains, runs their classical verification, and translates the results into post quantum attestations with proofs of correct verification. The rules around it are themselves law. Nothing in the organization may import Q Oracle. It is a terminating boundary, not a library. Classical cryptography stops at the Airlock. The chain parses exactly two foreign artifacts, a post quantum attestation in canonical form and a proof, and anything else is unparseable by construction. No code exists in Q Oracle before the bridge wave. Touching it earlier is an escalation.
 
-## Scheme agility and the transition track
+## Scheme agility and the Chain upgrades track
 
-Algorithms are versioned by a scheme identifier, and the stack is built for agility so a primitive can be retired or added without breaking address and identity binding. Any change to the algorithm set, such as adding FN DSA on publication, migrating a parameter set, or retiring a primitive, proceeds only through the governance transition track and only after external cryptanalysis. This document itself changes only through that same process.
+Algorithms are versioned by a scheme identifier, and the stack is built for agility so a primitive can be retired or added without breaking address and identity binding. Any change to the algorithm set, such as adding FN DSA on publication, migrating a parameter set, or retiring a primitive, proceeds only through the Chain upgrades governance track and only after external cryptanalysis. This document itself changes only through that same process.
 
 ## Claims discipline
 

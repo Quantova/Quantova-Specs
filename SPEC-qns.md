@@ -18,7 +18,7 @@ The registration fee scales inversely with the length of the name, so a short na
 
 ## Disputes
 
-A dispute over a name routes through the justice track of the governance protocol. A registration that impersonates or that is malicious is subject to evidence bound action, using the evidence bundle and the freeze and clawback powers described in the governance specification.
+A dispute over a name routes through the Blacklist and kill address track of the governance protocol. A registration that impersonates or that is malicious is subject to evidence bound action, using the evidence bundle and the freeze and clawback powers described in the governance specification.
 
 ## Randomness
 

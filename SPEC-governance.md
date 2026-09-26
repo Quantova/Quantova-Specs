@@ -4,31 +4,31 @@ This document is normative. It sits under the crypto policy. If anything conflic
 
 The guiding rule for every governance surface is that no vote is above the law.
 
-QONCORD is the governance protocol of Quantova. It runs parallel referendum tracks with stake weighted voting and delegation, and it rebuilds all of that on post quantum foundations. Every ballot is a lattice signature. Every tally is committed on chain from the counted lattice ballots. Governance is bounded by a constitution that no track can cross.
+QONCORD is the governance protocol of Quantova. It runs parallel referendum tracks with stake weighted conviction voting, and it rebuilds all of that on post quantum foundations. Every ballot is a lattice signature. Every tally is committed on chain from the counted lattice ballots. Governance is bounded by a constitution that no track can cross.
 
 ## 1. The five tracks
 
-Governance runs as five parallel tracks. Each track has its own deposit and its voting period, and every track passes on one and the same threshold. A proposal passes only when at least 40 percent of the total staked QTOV votes yes, which is 4000 basis points of the staked electorate, and the same 40 percent applies to every track including recovery. The genesis values are frozen starting points and change later only through the Chain upgrades track.
+Governance runs as five parallel tracks. Each track has its own deposit, voting period, enactment delay, and pass threshold. A proposal passes only when its aye weight reaches the track threshold of the whole staked electorate, 66.67 percent for Chain upgrades, Mint QTOV, and Bridge pool migration and 75 percent for Freeze and asset recovery and Blacklist and kill address, when turnout reaches at least 25 percent of that electorate, and when aye outweighs nay. The genesis values are frozen starting points and change later only through the Chain upgrades track.
 
-1.1 Chain upgrades. The most powerful track. It carries runtime upgrades and every root gated action, the fees, the governance configuration, and sensitive maintenance. It also carries every parameter change, a QIP, which is proposed and enacted here and on no other track. Its deposit is 2,250,000 QTOV, the highest on the chain. It runs fourteen days on a strong and deliberate schedule. The root authority of The LA super user exists only to bootstrap the testnet, it is handed to this track at mainnet so from then on no single key can act, and that key is never included when the stack is open sourced.
+1.1 Chain upgrades. The most powerful track. It carries runtime upgrades and every root gated action, the fees, the governance configuration, and sensitive maintenance. It also carries every parameter change, a QIP, which is proposed and enacted here and on no other track. Its deposit is 225,000 QTOV. It runs fourteen days on a strong and deliberate schedule, then waits a seven day enactment delay. The root authority of The LA super user exists only to bootstrap the testnet, it is handed to this track at mainnet so from then on no single key can act, and that key is never included when the stack is open sourced.
 
-1.2 Mint QTOV. The only path that creates new QTOV after genesis. Its deposit is 4,000,000 QTOV. It resolves in three days, so newly raised capital or network need can be met quickly. No single key can mint.
+1.2 Mint QTOV. The only path that creates new QTOV after genesis. Its deposit is 400,000 QTOV, the highest on the chain. It resolves in three days and enacts after a seven day delay, so newly raised capital or network need can be met quickly. No single key can mint.
 
-1.3 Bridge pool migration. Moves the bridge pool to a new vault, a high value custody action. Its deposit is 1,500,000 QTOV. It runs five days. In an emergency the bridge is frozen first and the pool migrates under this vote inside the freeze window.
+1.3 Bridge pool migration. Moves the bridge pool to a new vault, a high value custody action. Its deposit is 150,000 QTOV. It runs five days, then waits a seven day enactment delay. It also carries bridge asset registration, epoch advance, operator revocation, and committee rotation. In an emergency the bridge is frozen first and the pool migrates under this vote inside the freeze window.
 
-1.4 Freeze and asset recovery. Emergency consumer protection. Its deposit is 292,500 QTOV. It ratifies in about six hours. The freeze itself is instant and handled by the guardian caucus in section 4. This vote ratifies the clawback fast enough to catch a thief. The full amount returns to the address it was stolen from, and ordinary users are never affected.
+1.4 Freeze and asset recovery. Emergency consumer protection. Its deposit is 29,250 QTOV. It ratifies in six hours, then waits a one hour enactment delay. The freeze itself is instant and handled by the guardian caucus in section 4. This vote ratifies the clawback fast enough to catch a thief. The full amount returns to the address it was stolen from, and ordinary users are never affected.
 
-1.5 Blacklist and kill address. Retires a compromised or hostile address. Its deposit is 390,000 QTOV. It runs about two days.
+1.5 Blacklist and kill address. Retires a compromised or hostile address. Its deposit is 39,000 QTOV. It runs two days, then waits a one day enactment delay. Account freezes and unfreezes and the governance lift of a bridge freeze ride this track as well.
 
 ## 2. Voting
 
-A voter's weight is their staked QTOV, with no multiplier, so one staked unit is one unit of weight and no lock can make a small stake vote larger than its size. Staked QTOV returns automatically to the same address when it is unbonded. Delegation is chosen per track, so a holder can delegate one track and vote directly on another.
+A voter's weight is the QTOV they lock for the vote, up to the size of their bonded stake, multiplied by a conviction factor, one times for a one month lock, one and a half times for a one year lock, and two and a half times for a two year lock, so no stake can ever weigh more than two and a half times its size. Locked QTOV returns to the same address when the vote lock ends. There is no vote delegation.
 
-A node validator's consensus bond is a separate pool and carries no vote. Governance weight comes only from stake locked for governance, never from a validator bond, and the two pools are tracked separately at the ledger level so one can never be counted as the other. A validator who wishes to vote does so as an ordinary staker with a separate governance lock.
+A node validator's consensus bond and a governance lock are separate pools, tracked separately at the ledger level so one can never be counted as the other. The lock is what votes and the bond sets its ceiling, so no voter can lock more for a vote than the stake they have bonded.
 
 ## 3. Minting
 
-Minting the native asset exists only through the Mint QTOV track. It is uncapped. There is no supply ceiling and no per year limit, and the amount minted is whatever the referendum enacts, so newly raised capital or network need can be met on demand through a high threshold public vote. No single key can mint. Every mint permanently records the referendum identifier and the committed tally.
+Minting the native asset exists only through the Mint QTOV track. It is capped by a yearly ceiling of two percent of the total supply, and never less than 100,000 QTOV, and a referendum that would mint above it is unenactable, so newly raised capital or network need can be met through a high threshold public vote without unbounded dilution. No single key can mint. Every mint permanently records the referendum identifier and the committed tally.
 
 ## 4. Freeze and asset recovery
 
@@ -52,7 +52,7 @@ Second, recovery can never reach validator stake, consensus parameters, or gover
 
 Third, an emergency freeze pauses and never moves value on its own, and every freeze expires unless a referendum confirms it.
 
-Fourth, freeze expiry, appeal windows, and scope locks are protocol invariants, so any referendum that violates them is unenactable, refused the way a malformed transaction is refused. Minting carries no ceiling invariant, because the mint is uncapped by decision.
+Fourth, the yearly mint ceiling, freeze expiry, appeal windows, and scope locks are protocol invariants, so any referendum that violates them is unenactable, refused the way a malformed transaction is refused.
 
 Fifth, every enacted referendum permanently stores the proposal hash, the scope hash where the action is a recovery, the committed tally, and the enactment receipt.
 

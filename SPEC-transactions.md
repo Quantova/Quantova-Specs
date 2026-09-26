@@ -18,4 +18,4 @@ The fee is paid in the native asset. The nonce increases by one for each admitte
 
 ## Validity
 
-A transaction is valid when its encoding is canonical, its signature verifies, its nonce matches, and the sender can pay the fee and the execution meter limit. An invalid transaction is refused at ingress and never enters a block.
+A transaction is valid when its encoding is canonical, its signature verifies, its nonce matches, the sender can pay the fee and the execution meter limit, and a native transfer between accounts moves a nonzero amount. An invalid transaction is refused at ingress and never enters a block.

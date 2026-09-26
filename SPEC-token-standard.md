@@ -10,7 +10,7 @@ The issuer holds a quorum authority, a set of guardian keys with a threshold, us
 
 ## The issuer powers
 
-The standard defines these powers, each gated by the issuer quorum. Freeze and unfreeze of a named address, so the issuer can stop a specific account to meet law and sanctions. Clawback of the balance of a frozen address to a recovery destination, bound to evidence the same way as the justice protocol, so a seizure is scoped and recorded. Mint and burn of the token, so the issuer can manage supply, each with a permanent event. Pause of all transfers, so the issuer can stop the whole token in an emergency, with the pause recorded and reversible only by the quorum.
+The standard defines these powers, each gated by the issuer quorum. Freeze and unfreeze of a named address, so the issuer can stop a specific account to meet law and sanctions. Clawback of the balance of a frozen address to a recovery destination, bound to a declared scope the same way as a governance Freeze and asset recovery action, so a seizure is scoped and recorded. Mint and burn of the token, so the issuer can manage supply, each with a permanent event. Pause of all transfers, so the issuer can stop the whole token in an emergency, with the pause recorded and reversible only by the quorum.
 
 ## Compliance hooks
 
@@ -18,7 +18,7 @@ The standard offers optional hooks that an issuer turns on, and the chain never 
 
 ## Reconciliation with governance and the mint ceiling
 
-The issuer powers are contract level and act only on the issuer token. They are not chain governance and they never reach consensus or a consensus attestation, which stay module lattice only. The mint and burn here are of the issuer token and are not an issuance of the native asset, so the native mint ceiling in the constitution does not apply to them and is not touched by them. The issuer controls its own token supply under its own quorum, and the native asset supply stays under the monetary track and its ceiling.
+The issuer powers are contract level and act only on the issuer token. They are not chain governance and they never reach consensus or a consensus attestation, which stay module lattice only. The mint and burn here are of the issuer token and are not an issuance of the native asset, so the native mint ceiling in the constitution does not apply to them and is not touched by them. The issuer controls its own token supply under its own quorum, and the native asset supply stays under the Mint QTOV track and its yearly ceiling.
 
 ## The reference contract
 

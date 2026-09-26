@@ -12,7 +12,7 @@ Classical cryptography is not rejected at run time. It cannot be expressed. Wire
 
 ## Scheme agility
 
-Cryptography is versioned. A scheme identifier byte precedes every key, every signature, and every address payload. A new NIST scheme is added by assigning it a scheme identifier, and an old scheme is retired the same way, without breaking address or identity binding. The rendered forms, meaning the account and secret and hash strings, stay stable across this change. A change to the set of allowed schemes proceeds only through the governance transition track and only after external cryptanalysis, as the crypto policy requires.
+Cryptography is versioned. A scheme identifier byte precedes every key, every signature, and every address payload. A new NIST scheme is added by assigning it a scheme identifier, and an old scheme is retired the same way, without breaking address or identity binding. The rendered forms, meaning the account and secret and hash strings, stay stable across this change. A change to the set of allowed schemes proceeds only through the Chain upgrades governance track and only after external cryptanalysis, as the crypto policy requires.
 
 ## Determinism
 
