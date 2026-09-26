@@ -10,7 +10,7 @@ The block header holds the height, the hash of the parent header, the state root
 
 ## The certificate slot
 
-The header carries a slot for the aggregated certificate that consensus produces. The certificate is a single proof that the validator committee finalized the block, and it travels here rather than as a list of individual votes, so votes never consume block space. The digest of this certificate feeds the beacon for the next block.
+The header carries a slot for the aggregated certificate that consensus produces. The certificate is a single proof that the validator committee finalized the block, and it travels here rather than as a list of individual votes, so votes never consume block space. The certificate also carries the one time reveals of the committee it was formed over, and the beacon for the next block is derived from the lowest ticket among those reveals, as set out in SPEC-vrf.md, not from the certificate digest.
 
 ## The body
 

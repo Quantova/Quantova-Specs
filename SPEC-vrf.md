@@ -8,7 +8,7 @@ QVRF is the first verifiable random function composed entirely from NIST standar
 
 There is a per block beacon and a per user function.
 
-The per block beacon produces a seed for each block. The seed is SHAKE256 over the previous seed, followed by the digest of the aggregated finality certificate for the block, followed by the block height. The certificate is an artifact that consensus already produces, so the beacon is a hash of an existing value and not a new round of computation. The beacon drives leader election in the consensus. Its cost to the block pipeline is one hash, and that cost is proven by benchmark, not asserted.
+The per block beacon produces a seed for each block. For every reveal of the committee that finalized the block a ticket is computed as SHAKE256 over the previous seed, the ticket domain, the slot and the reveal. The seed is SHAKE256 over the previous seed, the beacon domain, the slot, and the one reveal with the lowest ticket. The reveals already travel with the certificate, so the beacon is a hash of existing values and not a new round of computation. The beacon drives leader election in the consensus. Its cost to the block pipeline is one hash, and that cost is proven by benchmark, not asserted.
 
 The per user function lets a caller derive a random output bound to an input. The output is SHAKE256 over the hash based signature of the input, followed by the input. The construction uses the deterministic hash based signature set out below, so the same key and input always yield the same signature and the same output with no randomizer to vary, and the output is verified by rechecking that signature and its Merkle authentication. It carries no proof system and no STARK.
 
@@ -18,7 +18,7 @@ This is resolved for the committee sortition by the one time key construction in
 
 ## The byte layout of the beacon
 
-The beacon input is the concatenation of three fields in this order. First the previous seed, which is 32 bytes. Then the certificate digest, which is 32 bytes. Then the height, which is an eight byte unsigned integer encoded little endian by the codec. The output is the 32 byte SHAKE256 result. The first block uses a fixed genesis seed stated in the genesis tooling.
+The ticket input is the previous seed of 32 bytes, the ticket domain QORUS/beacon/ticket, the slot as an eight byte little endian integer, and the reveal preimage. The beacon input is the previous seed of 32 bytes, the beacon domain QORUS/beacon/reveals, the slot as an eight byte little endian integer, then a single byte one followed by the chosen reveal preimage, or a single byte zero when the committee carried no reveal. The output is the 32 byte SHAKE256 result. The first block uses a fixed genesis seed stated in the genesis tooling.
 
 ## The construction
 
@@ -26,7 +26,7 @@ The function has one interface, an operation to generate an output for an input 
 
 ## Bias resistance as a reduction
 
-The beacon derives from the aggregated certificate, not from any single validator value. No participant can grind the output without controlling the supermajority that forms the certificate, and controlling that supermajority is breaking consensus itself. Therefore the bias resistance of the beacon reduces to the security of consensus, and both are post quantum. The named assumption is that an adversary controls less than the consensus supermajority threshold. This is stated as an argument, not as a claim that the output cannot be biased.
+The beacon is deliberately not derived from the certificate or the block, because the leader chooses the block's contents and could grind them. Each reveal is fixed in advance by the committed one time tree, so no participant can choose its reveal, it can only withhold it. Withholding moves the beacon only while the withheld reveal holds the lowest ticket, so a coalition chooses among at most its reveals that rank below every honest reveal, rather than among every subset of its reveals as a beacon over all reveals would allow. The named assumption is that honest reveals are delivered within the reveal window. This is stated as a bounded bias, not as a claim that the output cannot be biased.
 
 ## Verification surface
 
