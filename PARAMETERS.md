@@ -8,7 +8,7 @@ The block interval is one second. The node paces block production so that a heig
 
 ## Chain identity
 
-The network is named and the numeric chain identifier is derived from that name, never chosen as a bare number. Mainnet is Q1, testnet is Q3, and the development network is Q-dev-net-1. The numeric chain id that a transaction signs is the leading eight bytes of the SHA3-256 of the network name, so every signature is bound to one network and can never be replayed onto another. The name is the pinned identity and the number always follows from it, so there is one place to change and no bare hexadecimal identifier lives anywhere in the stack.
+The network is named and the numeric chain identifier is derived from that name, never chosen as a bare number. Mainnet is Q-main-net-1, testnet is Q-test-net-1, and the development network is Q-dev-net-1. The numeric chain id that a transaction signs is the leading eight bytes of the SHA3-256 of the network name, so every signature is bound to one network and can never be replayed onto another. The name is the pinned identity and the number always follows from it, so there is one place to change and no bare hexadecimal identifier lives anywhere in the stack.
 
 ## Mempool capacity
 
